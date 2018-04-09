@@ -21,6 +21,7 @@ k8s-deploy-dev:
   stage: deploy
   script:
     - hugo -d "https://indev.whitwell.xyz"
+    - ls -larth
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:latest" .
     - docker push "${CI_REGISTRY_IMAGE}:latest"
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} latest dev indev.whitwell.xyz

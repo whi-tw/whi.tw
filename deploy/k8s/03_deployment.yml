@@ -20,7 +20,7 @@ spec:
       namespace: my-website-${NAMESPACE}
     spec:
       imagePullSecrets:
-        — name: my-gitlab
+      — name: my-gitlab
       containers:
         image: ${REGISTRY}:${BUILD_NUMBER}
         name: my-website-${NAMESPACE}

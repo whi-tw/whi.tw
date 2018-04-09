@@ -9,6 +9,6 @@ export NAMESPACE=${NS}
 export ENV_URL=${URL}
 for f in deploy/k8s/*.yml
 do
- envsubst < $f > “.generated/$(basename $f)”
+ envsubst < $f > “../.generated/$(basename $f)”
 done
 kubectl apply -f .generated/

@@ -5,7 +5,7 @@ services:
 before_script:
   - export DOCKER_HOST="tcp://localhost:2375"
   - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
-  - opkg install hugo
+  - apt-get install hugo
 development:
   stage: deploy
   script:

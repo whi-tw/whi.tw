@@ -1,21 +1,40 @@
 image: docker:git
 services:
   - docker:dind
-
 before_script:
-  - export DOCKER_HOST="tcp://localhost:2375"
   - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
   - apk update
   - apk add hugo
 
-testing:
+build:
+  image: docker:git
+  services:
+  - docker:dind
+  stage: build
+  cache:
+  key: "builder"
+  script:
+    - docker version
+    - export DOCKER_HOST="tcp://localhost:2375"
+    - docker build --pull -t "$IMAGE_NAME:${CI_BUILD_REF_NAME}_${CI_BUILD_REF}" .
+    - docker push "$IMAGE_NAME:${CI_BUILD_REF_NAME}_${CI_BUILD_REF}"
+
+k8s-deploy-dev:
+  image: lwolf/kubectl_deployer:latest
+  services:
+    — docker:dind
   stage: deploy
   script:
-    - docker build -t "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}" .
-    - docker push "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}"
+    - kubectl config set-cluster my-cluster —-server="$K8S_URL" —-insecure-skip-tls-verify=true
+    - kubectl config set-credentials admin --token="$K8S_TOKEN"
+    - kubectl config set-context default-context --cluster=my-cluster --user=admin
+    - kubectl config use-context default-context
+    - kubectl get cs
+    - /bin/sh deploy.sh ${CI_BUILD_REF_NAME}_${CI_BUILD_REF} dev indev.whitwell.xyz
+  environment:
+    name: dev
+    url: https://indev.whitwell.xyz
   only:
-    - branches
-  except:
     - master
 
 stable:

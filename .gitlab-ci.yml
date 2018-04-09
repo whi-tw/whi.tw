@@ -1,7 +1,7 @@
 before_script:
   - export DOCKER_HOST="tcp://localhost:2375"
   - apk update
-  - apk add hugo curl
+  - apk add hugo curl gettext
   - curl -Lo /bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/linux/amd64/kubectl && chmod +x /bin/kubectl
   - docker version
   - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"

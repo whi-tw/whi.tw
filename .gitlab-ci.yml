@@ -1,11 +1,11 @@
 before_script:
   - export DOCKER_HOST="tcp://localhost:2375"
-  - docker version
-  - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
+  - apk update
+  - apk add hugo curl
   - curl -LO /bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/linux/amd64/kubectl && chmod +x /bin/kubectl
   - docker version
-  - apk update
-  - apk add hugo
+  - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
+  - docker version
   - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
   - kubectl config set-credentials admin --token="$K8S_TOKEN"
   - kubectl config set-context default-context --cluster=my-cluster --user=admin

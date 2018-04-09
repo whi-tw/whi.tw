@@ -1,3 +1,9 @@
 [submodule "themes/coder"]
 	path = themes/coder
 	url = https://github.com/luizdepra/hugo-coder.git
+[submodule "themes/hugo-classic.git"]
+	path = themes/hugo-classic.git
+	url = git@github.com:goodroot/hugo-classic.git
+[submodule "themes/cactus"]
+	path = themes/cactus
+	url = https://github.com/digitalcraftsman/hugo-cactus-theme.git

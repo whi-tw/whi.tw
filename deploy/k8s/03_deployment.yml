@@ -17,7 +17,7 @@ spec:
       labels:
         app: my-website-${NAMESPACE}
         tier: frontend
-    namespace: ${NAMESPACE}
+      namespace: my-website-${NAMESPACE}
     spec:
       containers:
       - image: ${REGISTRY}:${BUILD_NUMBER}

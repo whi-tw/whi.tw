@@ -27,6 +27,7 @@ k8s-deploy-dev:
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context
     - kubectl get cs
+    - ls -larth
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_BUILD_REF_NAME}_${CI_BUILD_REF} dev indev.whitwell.xyz
   environment:
     name: dev

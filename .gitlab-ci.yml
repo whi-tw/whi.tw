@@ -1,10 +1,9 @@
 image: docker:git
 services:
   - docker:dind
-variables:
-  DOCKER_DRIVER: overlay
 
 before_script:
+  - export DOCKER_HOST="tcp://localhost:2375"
   - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
 
 development:
@@ -14,22 +13,3 @@ development:
     - docker push "$CI_REGISTRY_IMAGE:latest"
   only:
     - master
-
-testing:
-  stage: deploy
-  script:
-    - docker build -t "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}" .
-    - docker push "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}"
-  only:
-    - branches
-  except:
-    - master
-
-stable:
-  stage: deploy
-  script:
-    - docker build -t "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}" .
-    - docker push "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}"
-  only:
-    - tags
-

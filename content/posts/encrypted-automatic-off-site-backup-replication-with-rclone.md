@@ -85,7 +85,7 @@ tasks:
 **name**: A unique identifier for each job. These must not contain spaces (there is no error checking for this as yet, so be careful!)  
 **local**: The absolute path to the local directory you are replicating.  
 **remote**: A combination of the remote you are using, and the path on that remote (without a preceding '/')  
-**operation**: The rclone operation you would like to use, chosen [from here](https://rclone.org/commands/). For replication purposes, sync will suffice.
+**operation**: The rclone operation you would like to use, chosen from [the list on the official rclone site](https://rclone.org/commands/). For replication purposes, sync will suffice.
 
 ## The sync script
 Finally, it is time to add the script which pulls all this configuration together.
@@ -103,7 +103,7 @@ If the on-demand run completed successfully, you can now set the jobs to run wit
 1. If you would like the backups run as root, a simple symlink in one of the `/etc/cron.{hourly,daily,weekly}` directories will suffice: `ln -s /opt/scripts/rcbackup.py /etc/cron.daily/backup-sync`.
 2. If you would like the script run as a different user (backup-user in this example), create a file at `/etc/cron.d/backup-sync` with the following contents. The time selection is obviously more fine-grained in this example as well.
 
-```markup
+```
 00 00 * * * backup-user /opt/scripts/rcbackup.py
 ```
 

@@ -17,7 +17,7 @@ Ensure it is executable (`chmod +x /usr/bin/rclone`).
 
 You should now be able to run it:
 
-```bash
+```
 tom@localhost:~ rclone
 Usage:
   rclone [flags]
@@ -32,7 +32,7 @@ Next is time for configuration. This is best not repeated here - use the [docume
 However, it is important to set up both a configuration for your cloud storage provider, *and* a 'crypt' type provider as well.
 
 ### Example configuration:
-```ini
+{{< highlight ini >}}
 [memset]
 type = swift
 user = *backup user*
@@ -51,7 +51,7 @@ remote = memset:server1.example.com
 filename_encryption = off
 password = *super_secret_password*
 password2 = *super_secret_salt*
-```
+{{< /highlight >}}
 
 # Piecing it all together
 So, we have rclone installed and configured, now what?
@@ -69,7 +69,7 @@ Create and open the file `/etc/rclone/jobs.yml`.
 
 Some sample content for this file is as follows:
 
-```yaml
+{{< highlight yaml >}}
 tasks:
   - name: backup_something
     local: "/path/to/sync"
@@ -79,7 +79,7 @@ tasks:
     local: "/another/path/to/sync"
     remote: "memset_crypt:another/path/to/remote"
     operation: sync
-```
+{{< /highlight >}}
 
 ### Breakdown of jobs.yml:
 **name**: A unique identifier for each job. These must not contain spaces (there is no error checking for this as yet, so be careful!)  

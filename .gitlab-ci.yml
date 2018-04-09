@@ -33,7 +33,7 @@ k8s-deploy-dev:
     - master
 
 k8s-deploy-prod:
-  image: lwolf/kubectl_deployer:latest
+  image: docker:git
   services:
     - docker:dind
   stage: deploy
@@ -45,7 +45,7 @@ k8s-deploy-prod:
     - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-prod/'  | kubectl create -f -"
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_REF_SLUG} prod tom.whitwell.xyz
   environment:
-    name: dev
+    name: prod
     url: https://tom.whitwell.xyz
   variables:
     GIT_SUBMODULE_STRATEGY: recursive

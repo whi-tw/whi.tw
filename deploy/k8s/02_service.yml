@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-website-${NAMESPACE}
+  labels:
+    app: my-website-${NAMESPACE}
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: my-website-${NAMESPACE}
+    tier: frontend
+  type: NodePort

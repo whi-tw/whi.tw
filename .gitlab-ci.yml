@@ -27,18 +27,10 @@ k8s-deploy-dev:
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context
     - kubectl get cs
-    - /bin/sh deploy.sh ${CI_BUILD_REF_NAME}_${CI_BUILD_REF} dev indev.whitwell.xyz
+    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_BUILD_REF_NAME}_${CI_BUILD_REF} dev indev.whitwell.xyz
   environment:
     name: dev
     url: https://indev.whitwell.xyz
   only:
     - master
-
-stable:
-  stage: deploy
-  script:
-    - docker build -t "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}" .
-    - docker push "$CI_REGISTRY_IMAGE:${CI_COMMIT_REF_SLUG}"
-  only:
-    - tags
 

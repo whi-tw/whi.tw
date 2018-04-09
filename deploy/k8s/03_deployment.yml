@@ -1,0 +1,30 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: my-website-${NAMESPACE}
+  labels:
+    app: my-website-${NAMESPACE}
+  namespace: ${NAMESPACE}
+spec:
+  selector:
+    matchLabels:
+      app: my-website-${NAMESPACE}
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: my-website-${NAMESPACE}
+        tier: frontend
+    namespace: ${NAMESPACE}
+    spec:
+      containers:
+      - image: ${REGISTRY}:${BUILD_NUMBER}
+        name: my-website-${NAMESPACE}
+        resources:
+          requests:
+            cpu: 500m
+        ports:
+        - containerPort: 80
+          name: my-website-${NAMESPACE}

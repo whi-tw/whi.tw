@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: wordpress-ingress
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  namespace: ${NAMESPACE}
+spec:
+  tls:
+  - hosts:
+    - ${ENV_URL}
+    secretName: my-website-${NAMESPACE}-tls-secret
+  rules:
+    - host: ${ENV_URL}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: my-website-${NAMESPACE}
+              servicePort: 80

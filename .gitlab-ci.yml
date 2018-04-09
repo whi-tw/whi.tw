@@ -21,10 +21,10 @@ build:
 k8s-deploy-dev:
   image: lwolf/kubectl_deployer:latest
   services:
-    — docker:dind
+    - docker:dind
   stage: deploy
   script:
-    - kubectl config set-cluster my-cluster —-server="$K8S_URL" —-insecure-skip-tls-verify=true
+    - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials admin --token="$K8S_TOKEN"
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context

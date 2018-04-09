@@ -1,30 +1,22 @@
 baseURL = "https://indev.whitwell.xyz/"
 languageCode = "en-gb"
-theme = "coder"
+title = "Tom Whitwell"
+theme = "cactus"
 # Theme Parameters
 [params]
-    author = "Tom Whitwell"
-    info = "Linux SysAdmin / DevOps in training"
+    name = "Tom Whitwell"
     description = "Tom Whitwell's personal website"
-    keywords = "blog,personal"
+    bio = "Linux SysAdmin / DevOps in training"
+    twitter = "tnwhitwell"
+    enableRSS = true
+    iconFont = "mono-social"
 
 # Social Links
-[[params.social]]
-    name = "GitHub"
-    weight = 1
-    url = "https://github.com/tnwhitwell"
-[[params.social]]
-    name = "Keybase"
-    weight = 2
-    url = "https://keybase.io/tnwhitwell"
-[[params.social]]
-    name = "Twitter"
-    weight = 3
-    url = "https://twitter.com/tnwhitwell"
-[[params.social]]
-    name = "LinkedIn"
-    weight = 4
-    url = "https://www.linkedin.com/in/tnwhitwell/"
+[social]
+    github = "https://github.com/tnwhitwell"
+    twitter = "https://twitter.com/tnwhitwell"
+    linkedin = "https://www.linkedin.com/in/tnwhitwell/"
+    keybase = "https://keybase.io/tnwhitwell"
 
 # Menu Links
 [[menu.main]]

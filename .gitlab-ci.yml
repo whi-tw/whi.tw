@@ -12,7 +12,6 @@ build:
   - docker:dind
   stage: build
   cache:
-  key: "builder"
   script:
     - docker version
     - export DOCKER_HOST="tcp://localhost:2375"

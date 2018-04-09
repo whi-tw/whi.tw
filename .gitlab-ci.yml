@@ -11,8 +11,6 @@ before_script:
   - kubectl config set-context default-context --cluster=my-cluster --user=admin
   - kubectl config use-context default-context
   - kubectl get cs
-  - kubectl delete secrets my-gitlab -n my-website-dev
-  - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-dev/'  | kubectl create -f -"
   
 k8s-deploy-dev:
   image: docker:git
@@ -20,10 +18,11 @@ k8s-deploy-dev:
     - docker:dind
   stage: deploy
   script:
-    - hugo -d "https://indev.whitwell.xyz"
-    - ls -larth
+    - hugo -b "https://indev.whitwell.xyz"
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:latest" .
     - docker push "${CI_REGISTRY_IMAGE}:latest"
+    - kubectl delete secrets my-gitlab -n my-website-dev
+    - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-dev/'  | kubectl create -f -"
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} latest dev indev.whitwell.xyz
   environment:
     name: dev
@@ -39,18 +38,9 @@ k8s-deploy-prod:
     - docker:dind
   stage: deploy
   script:
-    - export DOCKER_HOST="tcp://localhost:2375"
-    - docker version
-    - apk update
-    - apk add hugo
-    - hugo -d "https://tom.whitwell.xyz"
+    - hugo -b "https://tom.whitwell.xyz"
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}" .
     - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}"
-    - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
-    - kubectl config set-credentials admin --token="$K8S_TOKEN"
-    - kubectl config set-context default-context --cluster=my-cluster --user=admin
-    - kubectl config use-context default-context
-    - kubectl get cs
     - kubectl delete secrets my-gitlab -n my-website-prod
     - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-prod/'  | kubectl create -f -"
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_REF_SLUG} prod tom.whitwell.xyz

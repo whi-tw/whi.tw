@@ -2,3 +2,6 @@
 /public
 # OSX
 .DS_Store
+
+#vscode
+.vscode

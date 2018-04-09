@@ -6,7 +6,7 @@ before_script:
   - export DOCKER_HOST="tcp://localhost:2375"
   - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
   - apk update
-  - apk install hugo
+  - apk add hugo
 development:
   stage: deploy
   script:

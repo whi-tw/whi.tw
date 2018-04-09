@@ -4,7 +4,7 @@ metadata:
   name: my-website-${NAMESPACE}
   labels:
     app: my-website-${NAMESPACE}
-  namespace: ${NAMESPACE}
+  namespace: my-website-${NAMESPACE}
 spec:
   selector:
     matchLabels:

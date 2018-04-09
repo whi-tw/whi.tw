@@ -27,6 +27,7 @@ k8s-deploy-dev:
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context
     - kubectl get cs
+    - kubectl delete secrets my-gitlab -n my-website-dev
     - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-dev/'  | kubectl create -f -"
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_BUILD_REF_NAME}_${CI_BUILD_REF} dev indev.whitwell.xyz
   environment:

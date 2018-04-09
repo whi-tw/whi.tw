@@ -7,7 +7,7 @@ export REGISTRY=${REG}
 export BUILD_NUMBER=${TAG}
 export NAMESPACE=${NS}
 export ENV_URL=${URL}
-for f in templates/*.yml
+for f in deploy/k8s/*.yml
 do
  envsubst < $f > “.generated/$(basename $f)”
 done

@@ -2,33 +2,33 @@ before_script:
   - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
   
 k8s-deploy-dev:
-image: lwolf/kubectl_deployer:latest
-services:
-  - docker:dind
-stage: deploy
-script:
-  - export DOCKER_HOST="tcp://localhost:2375"
-  - docker version
-  - apk update
-  - apk add hugo
-  - hugo -d "https://indev.whitwell.xyz"
-  - docker build --pull -t "${CI_REGISTRY_IMAGE}:latest" .
-  - docker push "${CI_REGISTRY_IMAGE}:latest"
-  - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
-  - kubectl config set-credentials admin --token="$K8S_TOKEN"
-  - kubectl config set-context default-context --cluster=my-cluster --user=admin
-  - kubectl config use-context default-context
-  - kubectl get cs
-  - kubectl delete secrets my-gitlab -n my-website-dev
-  - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-dev/'  | kubectl create -f -"
-  - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE}:latest dev indev.whitwell.xyz
-environment:
-  name: dev
-  url: https://indev.whitwell.xyz
-variables:
-  GIT_SUBMODULE_STRATEGY: recursive
-only:
-  - master
+  image: lwolf/kubectl_deployer:latest
+  services:
+    - docker:dind
+  stage: deploy
+  script:
+    - export DOCKER_HOST="tcp://localhost:2375"
+    - docker version
+    - apk update
+    - apk add hugo
+    - hugo -d "https://indev.whitwell.xyz"
+    - docker build --pull -t "${CI_REGISTRY_IMAGE}:latest" .
+    - docker push "${CI_REGISTRY_IMAGE}:latest"
+    - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials admin --token="$K8S_TOKEN"
+    - kubectl config set-context default-context --cluster=my-cluster --user=admin
+    - kubectl config use-context default-context
+    - kubectl get cs
+    - kubectl delete secrets my-gitlab -n my-website-dev
+    - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-dev/'  | kubectl create -f -"
+    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE}:latest dev indev.whitwell.xyz
+  environment:
+    name: dev
+    url: https://indev.whitwell.xyz
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  only:
+    - master
 
 k8s-deploy-prod:
   image: lwolf/kubectl_deployer:latest

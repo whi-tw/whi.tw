@@ -4,6 +4,7 @@ metadata:
   name: my-website-${NAMESPACE}
   annotations:
     kubernetes.io/tls-acme: "true"
+    certmanager.k8s.io/cluster-issuer: "letsencrypt-prod"
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   namespace: my-website-${NAMESPACE}

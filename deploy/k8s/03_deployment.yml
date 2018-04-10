@@ -19,11 +19,11 @@ spec:
         tier: frontend
       namespace: my-website-${NAMESPACE}
     spec:
-      imagePullPolicy: Always
       imagePullSecrets:
       - name: my-gitlab
       containers:
       - name: my-website-${NAMESPACE}
+        imagePullPolicy: Always
         image: ${REGISTRY}:${BUILD_NUMBER}
         resources:
           requests:

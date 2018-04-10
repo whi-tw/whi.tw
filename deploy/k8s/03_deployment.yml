@@ -32,5 +32,5 @@ spec:
         - containerPort: 80
           name: my-website-${NAMESPACE}
         env:
-          name: ENVIRONMENT
+        - name: ENVIRONMENT
           value: ${NAMESPACE}

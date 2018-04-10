@@ -1,29 +1,42 @@
 baseURL = "https://indev.whitwell.xyz/"
 languageCode = "en-gb"
 title = "Tom Whitwell"
-theme = "cactus"
+theme = "nix"
 # Theme Parameters
 [params]
-    name = "Tom Whitwell"
-    description = "Tom Whitwell's personal website"
-    bio = "Linux SysAdmin / DevOps in training"
-    twitter = "tnwhitwell"
-    enableRSS = true
-    iconFont = "mono-social"
-
-# Social Links
-[social]
-    github = "https://github.com/tnwhitwell"
-    twitter = "https://twitter.com/tnwhitwell"
-    linkedin = "https://www.linkedin.com/in/tnwhitwell/"
-    keybase = "https://keybase.io/tnwhitwell"
+    GnuPGFingerprint = "2FF4C64C9183D2FE"
+    #StackExchangeID = "your_stackexchange_id"
+    #StackOverflowID = "your_stackoverflow_id"
+    GithubID = "tnwhitwell"
+    #GitlabId = "your_gitlab"
+    #BitbucketID = "your_bitbucket_id"
+    TwitterID = "tnwhitwell"
+    #CodepenID = "your_codepen"
+    LinkedInID = "tnwhitwell"
+    #GoogleplusID = "your_googleplus"
+    #FacebookID = "your_facebook"
+    #InstagramID = "your_instagram"
+    #TelegramID = "your_telegram"
+    Name = "Tom Whitwell"
+    HeaderUsername = "tnwhitwell"
+    HeaderHostname = "ip-78-31-111-75"
+    Email = "hi@whitwell.xyz"
+    #Phone = "+1-201-555-0123"
+    #Mobile = "+1-201-555-0123"
+    About = "Linux SysAdmin / DevOps in training"
+    #ProfilePicture = "profile_picture_url"
+    #SlackURL = "https://join.slack.com/..."
+    #GoogleAnalytics = "your_google_analytics_id"
+    PayPalMeID = "https://www.paypal.me/tnwhitwell."
+    #XingURL = "https://www.xing.com/profile/..."
 
 # Menu Links
-[[menu.main]]
-    name = "Blog"
-    weight = 1
-    url = "/posts/"
-[[menu.main]]
-    name = "About"
-    weight = 2
-    url = "/about/"
+[menu]
+    [[menu.header]]
+        name = "Posts"
+        weight = 0
+        url = "/posts/"
+    [[menu.header]]
+        name = "About"
+        weight = 1
+        url = "/about/"

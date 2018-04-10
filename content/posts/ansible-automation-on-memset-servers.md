@@ -2,6 +2,7 @@
 title: "Ansible Automation on Memset Servers"
 date: 2017-01-26T12:00:00+00:00
 draft: false
+tags: ["ansible", "memset", "orchestration"]
 ---
 
 ### What is Ansible?

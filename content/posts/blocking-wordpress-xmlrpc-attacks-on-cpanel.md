@@ -2,6 +2,7 @@
 title: "Blocking Wordpress xmlrpc Attacks on Cpanel"
 date: 2016-12-14T12:00:00+01:00
 draft: false
+tags: ["cpanel", "wordpress", "firewalling"]
 ---
 
 > Finally, a way to block those pesky WordPress DoS attacks on cPanel

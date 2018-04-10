@@ -1,33 +1,34 @@
-before_script:
-  - export DOCKER_HOST="tcp://localhost:2375"
-  - apk update
-  - apk add curl gettext tar
-  - curl -Lo hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.38.2/hugo_0.38.2_Linux-64bit.tar.gz
-  - tar xzf hugo.tar.gz hugo && chmod +x hugo
-  - curl -Lo /bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/linux/amd64/kubectl && chmod +x /bin/kubectl
-  - docker version
-  - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
-  - docker version
-  - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
-  - kubectl config set-credentials admin --token="$K8S_TOKEN"
-  - kubectl config set-context default-context --cluster=my-cluster --user=admin
-  - kubectl config use-context default-context
-  - kubectl get cs
-  
+build:
+  image: docker:git
+  services:
+    - docker:dind
+  stage: build
+  script:
+    - export DOCKER_HOST="tcp://localhost:2375"
+    - apk --no-cache add curl
+    - curl -Lo hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.38.2/hugo_0.38.2_Linux-64bit.tar.gz
+    - tar xzf hugo.tar.gz hugo && chmod +x hugo
+    - docker version
+    - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
+    - ./hugo -b "https://indev.whitwell.xyz" --enableGitInfo --debug -d dev
+    - ./hugo -b "https://tom.whitwell.xyz" -d prod
+    - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" .
+    - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
 k8s-deploy-dev:
   image: docker:git
   services:
     - docker:dind
   stage: deploy
   script:
-    - ./hugo -b "https://indev.whitwell.xyz" --enableGitInfo --debug -d dev
-    - ./hugo -b "https://tom.whitwell.xyz" -d prod
-    - docker build --pull -t "${CI_REGISTRY_IMAGE}:latest" .
-    - docker push "${CI_REGISTRY_IMAGE}:latest"
+    - curl -Lo /bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/linux/amd64/kubectl && chmod +x /bin/kubectl
+    - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials admin --token="$K8S_TOKEN"
+    - kubectl config set-context default-context --cluster=my-cluster --user=admin
+    - kubectl config use-context default-context
+    - kubectl get cs
     - kubectl delete secrets my-gitlab -n my-website-dev || true
     - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-dev/'  | kubectl create -f -"
-    - kubectl delete pod -l app=my-website-dev -n my-website-dev
-    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} latest dev indev.whitwell.xyz
+    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev indev.whitwell.xyz
   environment:
     name: dev
     url: https://indev.whitwell.xyz
@@ -42,9 +43,12 @@ k8s-deploy-prod:
     - docker:dind
   stage: deploy
   script:
-    - ./hugo -b "https://tom.whitwell.xyz" -d prodccccccge
-    - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}" .
-    - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}"
+    - curl -Lo /bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/linux/amd64/kubectl && chmod +x /bin/kubectl
+    - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials admin --token="$K8S_TOKEN"
+    - kubectl config set-context default-context --cluster=my-cluster --user=admin
+    - kubectl config use-context default-context
+    - kubectl get cs
     - kubectl delete secrets my-gitlab -n my-website-prod || true
     - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-prod/'  | kubectl create -f -"
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_REF_SLUG} prod tom.whitwell.xyz

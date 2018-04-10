@@ -21,10 +21,10 @@ spec:
     spec:
       imagePullSecrets:
       - name: my-gitlab
-      imagePullPolicy: Always
       containers:
       - name: my-website-${NAMESPACE}
         image: ${REGISTRY}:${BUILD_NUMBER}
+        imagePullPolicy: Always
         resources:
           requests:
             cpu: 500m

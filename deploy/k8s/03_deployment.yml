@@ -6,12 +6,16 @@ metadata:
     app: my-website-${NAMESPACE}
   namespace: my-website-${NAMESPACE}
 spec:
+  replicas: 4
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
   selector:
     matchLabels:
       app: my-website-${NAMESPACE}
       tier: frontend
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -19,12 +23,6 @@ spec:
         tier: frontend
       namespace: my-website-${NAMESPACE}
     spec:
-      replicas: 4
-      strategy:
-        rollingUpdate:
-          maxSurge: 1
-          maxUnavailable: 0
-        type: RollingUpdate
       imagePullSecrets:
       - name: my-gitlab
       containers:

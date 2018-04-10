@@ -56,7 +56,7 @@ k8s-deploy-prod:
     - kubectl get cs
     - kubectl delete secrets my-gitlab -n my-website-prod || true
     - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-prod/'  | kubectl create -f -"
-    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_REF_SLUG} prod tom.whitwell.xyz
+    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod tom.whitwell.xyz
   environment:
     name: prod
     url: https://tom.whitwell.xyz

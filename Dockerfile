@@ -10,6 +10,6 @@ RUN chown -R nginx:nginx /usr/share/nginx
 
 EXPOSE 80
 
-STOPSIGNAL SIGTERM
+STOPSIGNAL SIGKILL
 
 CMD /bin/sh -c "envsubst < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;' || cat /etc/nginx/conf.d/default.conf"

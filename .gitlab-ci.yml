@@ -2,7 +2,7 @@ stages:
   - build
   - deploy
 before_script:
-  - apk --no-cache add curl
+  - apk --no-cache add curl gettext
 build:
   image: docker:git
   services:

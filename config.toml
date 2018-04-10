@@ -2,7 +2,6 @@ baseURL = "https://indev.whitwell.xyz/"
 languageCode = "en-gb"
 title = "Tom Whitwell"
 theme = "cactus"
-uglyURLs = true
 # Theme Parameters
 [params]
     name = "Tom Whitwell"

@@ -21,6 +21,7 @@ k8s-deploy-dev:
   stage: deploy
   script:
     - ./hugo -b "https://indev.whitwell.xyz" --enableGitInfo --debug -d dev
+    - ./hugo -b "https://tom.whitwell.xyz" -d prod
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:latest" .
     - docker push "${CI_REGISTRY_IMAGE}:latest"
     - kubectl delete secrets my-gitlab -n my-website-dev || true
@@ -41,7 +42,7 @@ k8s-deploy-prod:
     - docker:dind
   stage: deploy
   script:
-    - ./hugo -b "https://tom.whitwell.xyz" -d prod
+    - ./hugo -b "https://tom.whitwell.xyz" -d prodccccccge
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}" .
     - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}"
     - kubectl delete secrets my-gitlab -n my-website-prod || true

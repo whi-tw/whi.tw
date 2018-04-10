@@ -18,6 +18,9 @@ build:
     - ./hugo -b "https://tom.whitwell.xyz" -d prod
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" .
     - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+
 k8s-deploy-dev:
   image: docker:git
   services:
@@ -36,8 +39,6 @@ k8s-deploy-dev:
   environment:
     name: dev
     url: https://indev.whitwell.xyz
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
   only:
     - master
 
@@ -59,7 +60,5 @@ k8s-deploy-prod:
   environment:
     name: prod
     url: https://tom.whitwell.xyz
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
   only:
     - tags

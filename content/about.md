@@ -2,6 +2,7 @@
 title: "About"
 date: 2018-04-09T14:05:53+01:00
 draft: false
+showthedate: false
 ---
 
 I'm a Linux Systems Administrator at [Memset](https://www.memset.com), an award-winning provider of dedicated servers, VPS (virtual servers), managed hosting, and cloud IaaS in the South of England.

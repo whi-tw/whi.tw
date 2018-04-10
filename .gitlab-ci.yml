@@ -18,7 +18,7 @@ k8s-deploy-dev:
     - docker:dind
   stage: deploy
   script:
-    - hugo -b "https://indev.whitwell.xyz"
+    - hugo -b "https://indev.whitwell.xyz" --uglyUrls=true
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:latest" .
     - docker push "${CI_REGISTRY_IMAGE}:latest"
     - kubectl delete secrets my-gitlab -n my-website-dev || true
@@ -38,7 +38,7 @@ k8s-deploy-prod:
     - docker:dind
   stage: deploy
   script:
-    - hugo -b "https://tom.whitwell.xyz"
+    - hugo -b "https://tom.whitwell.xyz" --uglyUrls=true
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}" .
     - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}"
     - kubectl delete secrets my-gitlab -n my-website-prod || true

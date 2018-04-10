@@ -3,4 +3,4 @@
 	url = https://github.com/tnwhitwell/hugo-cactus-theme
 [submodule "themes/nix"]
 	path = themes/nix
-	url = https://github.com/LordMathis/hugo-theme-nix
+	url = https://github.com/tnwhitwell/hugo-theme-nix

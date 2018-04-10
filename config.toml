@@ -27,16 +27,16 @@ theme = "nix"
     #ProfilePicture = "profile_picture_url"
     #SlackURL = "https://join.slack.com/..."
     #GoogleAnalytics = "your_google_analytics_id"
-    PayPalMeID = "https://www.paypal.me/tnwhitwell."
+    PayPalMeID = "tnwhitwell"
     #XingURL = "https://www.xing.com/profile/..."
 
 # Menu Links
 [menu]
     [[menu.header]]
         name = "Posts"
-        weight = 0
+        weight = 1
         url = "/posts/"
     [[menu.header]]
         name = "About"
-        weight = 1
+        weight = 0
         url = "/about/"

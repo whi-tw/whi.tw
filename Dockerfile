@@ -5,6 +5,7 @@ MAINTAINER Tom Whitwell version: 1.0.2
 COPY dev /usr/share/nginx/dev
 COPY prod /usr/share/nginx/prod
 COPY deploy/nginx/default.conf /etc/nginx/conf.d/default.conf.template
+COPY deploy/nginx/nginx.conf /etc/nginx/nginx.conf
 
 RUN chown -R nginx:nginx /usr/share/nginx
 

@@ -6,7 +6,7 @@ COPY dev /usr/share/nginx/dev
 COPY prod /usr/share/nginx/prod
 COPY deploy/nginx/default.conf /etc/nginx/conf.d/default.conf.template
 
-RUN chown -R nginx:nginx /usr/share/nginx/html
+RUN chown -R nginx:nginx /usr/share/nginx
 
 EXPOSE 80
 

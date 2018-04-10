@@ -33,14 +33,12 @@ k8s-deploy-dev:
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context
     - kubectl get cs
-    - kubectl delete secrets my-gitlab -n my-website-${CI_ENVIRONMENT_NAME} || true
-    - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-${CI_ENVIRONMENT_NAME}/'  | kubectl create -f -"
-    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} ${CI_ENVIRONMENT_NAME} ${SITE_FQDN}
+    - kubectl delete secrets my-gitlab -n my-website-dev || true
+    - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-dev/'  | kubectl create -f -"
+    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev indev.whitwell.xyz
   environment:
     name: dev
     url: https://indev.whitwell.xyz
-  variables:
-    SITE_FQDN: https://indev.whitwell.xyz
   only:
     - master
 
@@ -56,13 +54,11 @@ k8s-deploy-prod:
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context
     - kubectl get cs
-    - kubectl delete secrets my-gitlab -n my-website-${CI_ENVIRONMENT_NAME} || true
-    - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-${CI_ENVIRONMENT_NAME}/'  | kubectl create -f -"
-    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} ${CI_ENVIRONMENT_NAME} ${SITE_FQDN}
+    - kubectl delete secrets my-gitlab -n my-website-prod || true
+    - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-prod/'  | kubectl create -f -"
+    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod tom.whitwell.xyz
   environment:
     name: prod
     url: https://tom.whitwell.xyz
-  variables:
-    SITE_FQDN: tom.whitwell.xyz
   only:
     - tags

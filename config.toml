@@ -26,7 +26,7 @@ theme = "nix"
     About = "Linux SysAdmin / DevOps in training"
     #ProfilePicture = "profile_picture_url"
     #SlackURL = "https://join.slack.com/..."
-    #GoogleAnalytics = "your_google_analytics_id"
+    GoogleAnalytics = "UA-51691857-1"
     PayPalMeID = "tnwhitwell"
     #XingURL = "https://www.xing.com/profile/..."
 

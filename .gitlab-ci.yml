@@ -1,8 +1,14 @@
 stages:
+  - test
   - build
   - deploy
 before_script:
   - apk --no-cache add curl gettext
+check-markdown:
+  image: gouvinb/docker-markdownlint/
+  stage: test
+  script: markdownlint content/
+
 build:
   image: docker:git
   services:

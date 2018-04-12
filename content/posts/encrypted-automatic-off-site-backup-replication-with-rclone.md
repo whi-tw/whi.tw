@@ -122,7 +122,7 @@ If there are any stack-traces, look them over - it may be a typo in jobs.yml, or
 If the on-demand run completed successfully, you can now set the jobs to run with cron. This can be achieved in one of two ways:
 
 1. If you would like the backups run as root, a simple symlink in one of the `/etc/cron.{hourly,daily,weekly}` directories will suffice: `ln -s /opt/scripts/rcbackup.py /etc/cron.daily/backup-sync`.
-2. If you would like the script run as a different user (backup-user in this example), create a file at `/etc/cron.d/backup-sync` with the following contents. The time selection is obviously more fine-grained in this example as well.
+1. If you would like the script run as a different user (backup-user in this example), create a file at `/etc/cron.d/backup-sync` with the following contents. The time selection is obviously more fine-grained in this example as well.
 
 ```markup
 00 00 * * * backup-user /opt/scripts/rcbackup.py

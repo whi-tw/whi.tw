@@ -4,39 +4,25 @@ date: 2017-01-26T12:00:00+00:00
 draft: false
 tags: ["ansible", "memset", "orchestration"]
 ---
-<!-- markdownlint-disable MD002 MD022 MD026 MD041-->
+<!-- markdownlint-disable MD002 MD022 MD026-->
 ## What is Ansible?
-<!-- markdownlint-enable MD002 MD022 MD026 MD041-->
+<!-- markdownlint-enable MD002 MD022 MD026-->
 
-> Ansible is an open source automation tool, which facilitates configuration
-> management, application deployment and task automation.
+> Ansible is an open source automation tool, which facilitates configuration management, application deployment and task automation.
 
-A complex multi-step process can be automated and run with a simple command
-from your workstation: `ansible-playbook task.yml`.
+A complex multi-step process can be automated and run with a simple command from your workstation: `ansible-playbook task.yml`.
 
-A key word for Ansible is '*ensure*'. Ansible will work to ensure that
-configuration / tasks are run. If a task completes without changing any
-settings, it is 'ok'. Otherwise, it was 'changed' or sometimes 'failed'
-([*which is not always a Bad Thing™*](https://docs.ansible.com/ansible/playbooks_conditionals.html#the-when-statement))
+A key word for Ansible is '*ensure*'. Ansible will work to ensure that configuration / tasks are run. If a task completes without changing any settings, it is 'ok'. Otherwise, it was 'changed' or sometimes 'failed' ([*which is not always a Bad Thing™*](https://docs.ansible.com/ansible/playbooks_conditionals.html#the-when-statement))
 
-Ansible is best compared to one of the 'greats' of automation and configuration
-management: Puppet.
+Ansible is best compared to one of the 'greats' of automation and configuration management: Puppet.
 
-While Puppet is ideal for ensuring that configuration is static and unchanging,
-it requires a great deal of setup and infrastructure: a puppetmaster server
-must be configured and available at all times, and all clients must be
-configured with the agent which periodically pulls the configuration.
+While Puppet is ideal for ensuring that configuration is static and unchanging, it requires a great deal of setup and infrastructure: a puppetmaster server must be configured and available at all times, and all clients must be configured with the agent which periodically pulls the configuration.
 
-Ansible, however, requires only a workstation with Python 2.6 / 2.7 and the
-[Ansible CLI package](https://docs.ansible.com/ansible/intro_getting_started.html).
-All communication is performed over SSH (it is assumed that the servers are
-accessible over ssh). Configuration and tasks are pushed to the servers
-on-demand, and results are fed back to the controller in real-time.
+Ansible, however, requires only a workstation with Python 2.6 / 2.7 and the [Ansible CLI package](https://docs.ansible.com/ansible/intro_getting_started.html). All communication is performed over SSH (it is assumed that the servers are accessible over ssh). Configuration and tasks are pushed to the servers on-demand, and results are fed back to the controller in real-time.
 
 ### The Ansible Inventory
 
-A key part of Ansible is the inventory: a static file which describes all the
-hosts you wish to control.
+A key part of Ansible is the inventory: a static file which describes all the hosts you wish to control.
 
 This is located at `/etc/ansible/hosts` by default.
 
@@ -58,9 +44,7 @@ testyaa49.miniserver.com
 
 This defines two groups of servers: web and mariadb.
 
-Ansible automatically collects information about the servers on each run, which
-it will load into your inventory as variables. However, it can be useful to add
-your own information to each server. This is possible with [custom variables](https://docs.ansible.com/ansible/playbooks_variables.html).
+Ansible automatically collects information about the servers on each run, which it will load into your inventory as variables. However, it can be useful to add your own information to each server. This is possible with [custom variables](https://docs.ansible.com/ansible/playbooks_variables.html).
 
 Custom variables can be assigned to individual hosts in the inventory:
 
@@ -69,10 +53,15 @@ Custom variables can be assigned to individual hosts in the inventory:
 ```ini
 [web]
 testyaa46.miniserver.com ansible_ssh_user=tom nickname=webhost1
+```
 {{< /highlight >}}
+<!-- markdownlint-enable MD031-->
 
 Or to groups:
+
+<!-- markdownlint-disable MD031-->
 {{< highlight ini >}}
+```ini
 [web:vars]
 ansible_ssh_user=tom
 http_port=80
@@ -84,18 +73,13 @@ Ansible provide [detailed documentation](https://docs.ansible.com/ansible/intro_
 
 #### Inventory gotchas
 
-The management of the inventory file can become a job in itself, though, as all
-servers need to be added and classified.
+The management of the inventory file can become a job in itself, though, as all servers need to be added and classified.
 
-For specific-use machines (web / database servers) this is sensible, as you do
-not necessarily want to make assumptions about those kind of servers. However,
-for general maintenance it is useful to have all the servers under your control
-available within the inventory. To simplify this, the best approach is...
+For specific-use machines (web / database servers) this is sensible, as you do not necessarily want to make assumptions about those kind of servers. However, for general maintenance it is useful to have all the servers under your control available within the inventory. To simplify this, the best approach is...
 
 ### Automatically building the inventory
 
-Ansible allows an executable script to be used in place of the static hosts
-file, which will populate the Ansible inventory from a given data source
+Ansible allows an executable script to be used in place of the static hosts file, which will populate the Ansible inventory from a given data source
 
 I have written a script to integrate Ansible with the [Memset API](https://www.memset.com/apidocs/).
 
@@ -110,16 +94,13 @@ This script will generate 4 groups within Ansible:
 
 These groups will be populated with the servers on your Memset account.
 
-Additionally, a number of variables containing information about your servers
-are provided to Ansible from the API, which are [documented here](https://github.com/Memset/memset-ansible-dynamic-inventory/blob/master/Docs/Variables.md).
+Additionally, a number of variables containing information about your servers are provided to Ansible from the API, which are [documented here](https://github.com/Memset/memset-ansible-dynamic-inventory/blob/master/Docs/Variables.md).
 
-Documentation on how to install and use this script is available in the
-project's [readme](https://github.com/Memset/memset-ansible-dynamic-inventory/blob/master/README.md).
+Documentation on how to install and use this script is available in the project's [readme](https://github.com/Memset/memset-ansible-dynamic-inventory/blob/master/README.md).
 
 #### Testing the inventory
 
-A simple test that this script is working for you would be with Ansible's ping
-module:
+A simple test that this script is working for you would be with Ansible's ping module:
 
 This will ping all the linux servers on your Memset Account:
 
@@ -135,22 +116,19 @@ ansible memset-linux -l memset-dunsfold -m ping
 
 ### Ansible Playbooks
 
-Playbooks are, at their simplest form, a list of commands and modules. They are
-written in the YAML syntax, and a Playbook is tied to a specific group of
-servers.
+Playbooks are, at their simplest form, a list of commands and modules. They are written in the YAML syntax, and a Playbook is tied to a specific group of servers.
 
 [Ansible's playbook documentation](https://docs.ansible.com/ansible/playbooks.html)
 
-Propagation and maintenance of SSH authorized_keys on multiple Linux servers,
-is a task which requires accuracy and reliability.
+Propagation and maintenance of SSH authorized_keys on multiple Linux servers, is a task which requires accuracy and reliability.
 
 A common method for this would be:
 
 1. Log into the server
-2. View the ~/.ssh/authorized_keys file
-3. Add any missing keys
-4. Remove any unnecessary keys
-5. Log out
+1. View the ~/.ssh/authorized_keys file
+1. Add any missing keys
+1. Remove any unnecessary keys
+1. Log out
 
 With ansible, this can be done with the following Playbook:
 
@@ -213,7 +191,7 @@ Content of motd.j2:
 {% if memset_firewall_rule_group_nickname != '' %}Firewall Group: {{ memset_firewall_rule_group_nickname }}{% endif %}
 ```
 {{< /highlight >}}
-<!-- markdownlint-disable MD031-->
+<!-- markdownlint-enable MD031-->
 
 This would result in the motd reading, for example:
 

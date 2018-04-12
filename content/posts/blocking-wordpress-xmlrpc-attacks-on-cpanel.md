@@ -187,13 +187,13 @@ csf -a 198.51.100.45 [optional comment]
 If you would prefer, the block can be removed from the WebUI:
 
 1. WHM >> Plugins >> ConfigServer Security & Firewall
-2. Enter the blocked IP in the box adjacent to the 'Quick Unblock' button
-3. Click 'Quick Unblock'
+1. Enter the blocked IP in the box adjacent to the 'Quick Unblock' button
+1. Click 'Quick Unblock'
 
 And whitelist the IP:
 
 1. WHM >> Plugins >> ConfigServer Security & Firewall
-2. Enter the blocked IP (and optional comment) in the box(es) adjacent to the 'Quick Allow' button
-3. Click 'Quick Allow'
+1. Enter the blocked IP (and optional comment) in the box(es) adjacent to the 'Quick Allow' button
+1. Click 'Quick Allow'
 
 *This article was also posted on the Memset Official Blog, [here](https://www.memset.com/blog/block-wordpress-dos-attacks-cpanel/).*

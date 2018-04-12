@@ -121,7 +121,7 @@ A common method for this would be:
 
 With ansible, this can be done with the following Playbook:
 
-<!-- markdownlint-disable MD003 MD007 MD022 MD032 -->
+<!-- markdownlint-disable MD003 MD007 MD022 MD024 MD032 -->
 {{< highlight yaml >}}
 ---
 - hosts: memset-linux
@@ -141,7 +141,7 @@ With ansible, this can be done with the following Playbook:
       with_fileglob:
         - "/path/to/unauthorized/*"
 {{< /highlight >}}
-<!-- markdownlint-enable MD003 MD007 MD022 MD032 -->
+<!-- markdownlint-enable MD003 MD007 MD022 MD024 MD032 -->
 
 Where:
 
@@ -150,7 +150,7 @@ Where:
 
 Another possible use is updating the Message of the Day on the server with some information about the server from your Memset account, using the variables the [script](https://github.com/Memset/memset-ansible-dynamic-inventory) provides:
 
-<!-- markdownlint-disable-->
+<!-- markdownlint-disable MD003 MD007 MD022 MD024 MD032 -->
 {{< highlight yaml >}}
 ---
 - hosts: memset-linux
@@ -162,7 +162,7 @@ Another possible use is updating the Message of the Day on the server with some 
         backup: no
       when: memset_nickname is defined
 {{< /highlight >}}
-<!-- markdownlint-enable -->
+<!-- markdownlint-enable MD003 MD007 MD022 MD024 MD032 -->
 
 Content of motd.j2:
 

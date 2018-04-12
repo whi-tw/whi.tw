@@ -4,8 +4,9 @@ date: 2017-01-26T12:00:00+00:00
 draft: false
 tags: ["ansible", "memset", "orchestration"]
 ---
-
-### What is Ansible?
+<!-- markdownlint-disable MD002 MD022 MD026 MD041-->
+## What is Ansible?
+<!-- markdownlint-enable MD002 MD022 MD026 MD041-->
 
 > Ansible is an open source automation tool, which facilitates configuration management, application deployment and task automation.
 
@@ -57,7 +58,7 @@ http_port=80
 
 Ansible provide [detailed documentation](https://docs.ansible.com/ansible/intro_inventory.html) on the inventory file.
 
-#### Inventory gotchas:
+#### Inventory gotchas
 
 The management of the inventory file can become a job in itself, though, as all servers need to be added and classified.
 
@@ -90,13 +91,13 @@ A simple test that this script is working for you would be with Ansible's ping m
 
 This will ping all the linux servers on your Memset Account:
 
-```
+```markup
 ansible memset-linux -m ping
 ```
 
 Further filtering can be performed using the other groups - this will ping all the linux servers in the Dunsfold network zone:
 
-```
+```markup
 ansible memset-linux -l memset-dunsfold -m ping
 ```
 
@@ -104,11 +105,12 @@ ansible memset-linux -l memset-dunsfold -m ping
 
 Playbooks are, at their simplest form, a list of commands and modules. They are written in the YAML syntax, and a Playbook is tied to a specific group of servers.
 
-Ansible's playbook documentation is here: https://docs.ansible.com/ansible/playbooks.html
+[Ansible's playbook documentation](https://docs.ansible.com/ansible/playbooks.html)
 
 Propagation and maintenance of SSH authorized_keys on multiple Linux servers, is a task which requires accuracy and reliability.
 
 A common method for this would be:
+
 1. Log into the server
 2. View the ~/.ssh/authorized_keys file
 3. Add any missing keys
@@ -117,6 +119,8 @@ A common method for this would be:
 
 With ansible, this can be done with the following Playbook:
 {{< highlight yaml >}}
+
+```yaml
 ---
 - hosts: memset-linux
   tasks:
@@ -134,15 +138,19 @@ With ansible, this can be done with the following Playbook:
         key: "{{ item }}"
       with_fileglob:
         - "/path/to/unauthorized/*"
+```
+
 {{< /highlight >}}
 Where:
+
 - `/path/to/authorized/` = a directory of public keys you want on the server
 - `/path/to/unauthorized/` = a directory of public keys you DO NOT want on the server
 
-<br />
 Another possible use is updating the Message of the Day on the server with some information about the server from your Memset account, using the variables the [script](https://github.com/Memset/memset-ansible-dynamic-inventory) provides:
 
 {{< highlight yaml >}}
+
+```yaml
 ---
 - hosts: memset-linux
   tasks:
@@ -152,18 +160,24 @@ Another possible use is updating the Message of the Day on the server with some 
         dest: "/etc/motd"
         backup: no
       when: memset_nickname is defined
+```
+
 {{< /highlight >}}
 Content of motd.j2:
 {{< highlight twig >}}
+
+```twig
 {% if memset_nickname != '' %}Description: {{ memset_nickname }}{% endif %}
 
 {% if memset_data_zone != '' %}Datacenter: {{ memset_network_zone }}{% endif %}
 
-{% if memset_firewall_rule_group_nickname != '' %}Firewall Group: {{ memset_firewall_rule_group_nickname }}{% endif %}</pre>
+{% if memset_firewall_rule_group_nickname != '' %}Firewall Group: {{ memset_firewall_rule_group_nickname }}{% endif %}
+```
+
 {{< /highlight >}}
 This would result in the motd reading, for example:
 
-```
+```markup
 Description: Webhost 1
 Datacenter: dunsfold
 Firewall Group: Webhost Firewall

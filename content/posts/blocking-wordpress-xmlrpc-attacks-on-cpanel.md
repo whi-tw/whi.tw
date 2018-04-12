@@ -11,12 +11,16 @@ A very common DOS attack on a cPanel server is against the WordPress API scripts
 
 If you have been subjected to this kind of attack in the past, and have attempted to prevent reoccurrence, you will likely know that the oft-quoted .htaccess solutions, such as:
 
+<!-- markdownlint-disable MD031-->
 {{< highlight apache >}}
+```apache
 <Files xmlrpc.php>
         order deny,allow
         deny from all
 </Files>
+```
 {{< /highlight >}}
+<!-- markdownlint-enable MD031-->
 
 Have limited success in mitigating this kind of attack.
 
@@ -26,43 +30,62 @@ However, I was looking for a way to permanently block attackers at firewall leve
 
 I discovered recently that the popular software firewall [ConfigServer Security & Firewall (csf)](https://configserver.com/cp/csf.html) for cPanel supports wildcards in its custom logs, which has made this firewall-level blocking possible.
 
+<!-- markdownlint-disable MD002 MD022-->
 ### Useful Links
+<!-- markdownlint-enable MD002 MD022-->
+
 * [Project Homepage](https://configserver.com/cp/csf.html)
 * [Official Install Guide](https://download.configserver.com/csf/install.txt)
 
-
 ## WARNING
+
 > This may result in blocked IPs, for example, people using the WordPress App.
 >
 > If the WordPress App is being used in your environment, [Wordfence](https://www.wordfence.com/) may be a better solution, as it does some 'under-the-hood smarts' to separate legitimate traffic from abuse.
 
 ## Adding the magic
-#### Adding the account domain logs to lfd's 'watchlist'
+
+### Adding the account domain logs to lfd's 'watchlist'
 
 Open `/etc/csf/csf.conf` in an editor, and locate the line:
 
+<!-- markdownlint-disable MD031-->
 {{< highlight ini>}}
+```ini
 CUSTOM1_LOG = "/var/log/customlog"
+```
 {{< /highlight >}}
+<!-- markdownlint-enable MD031-->
 
 Change this to read:
 
+<!-- markdownlint-disable MD031-->
 {{< highlight ini>}}
+```ini
 CUSTOM1_LOG =  "/usr/local/apache/domlogs/*/*"
+```
 {{< /highlight >}}
+<!-- markdownlint-enable MD031-->
 
 Save and close this file.
 
 #### Adding the rule to csf's custom regex rule configuration
 
 First create a copy of the file:
+
+<!-- markdownlint-disable MD031-->
 {{< highlight bash >}}
+```bash
 cp /etc/csf/regex.custom.pm /etc/csf/regex.custom.pm.bak
+```
 {{< /highlight >}}
+<!-- markdownlint-enable MD031-->
 
 Now open the file in an editor and replace the contents with the following:
 
+<!-- markdownlint-disable MD031-->
 {{< highlight perl >}}
+```perl
 #!/usr/local/cpanel/3rdparty/bin/perl
 ###############################################################################
 # Copyright 2006-2016, Way to the Web Limited
@@ -71,8 +94,8 @@ Now open the file in an editor and replace the contents with the following:
 ###############################################################################
 
 sub custom_line {
-	my $line = shift;
-	my $lgfile = shift;
+    my $line = shift;
+    my $lgfile = shift;
 
 # Do not edit before this point
 ###############################################################################
@@ -86,9 +109,9 @@ sub custom_line {
 # The regex matches in this file will supercede the matches in regex.pm
 #
 # Example:
-#	if (($globlogs{CUSTOM1_LOG}{$lgfile}) and ($line =~ /^\S+\s+\d+\s+\S+ \S+ pure-ftpd: \(\?\@(\d+\.\d+\.\d+\.\d+)\) \[WARNING\] Authentication failed for user/)) {
-#		return ("Failed myftpmatch login from",$1,"myftpmatch","5","20,21","1");
-#	}
+#   if (($globlogs{CUSTOM1_LOG}{$lgfile}) and ($line =~ /^\S+\s+\d+\s+\S+ \S+ pure-ftpd: \(\?\@(\d+\.\d+\.\d+\.\d+)\) \[WARNING\] Authentication failed for user/)) {
+#       return ("Failed myftpmatch login from",$1,"myftpmatch","5","20,21","1");
+#   }
 #
 # The return values from this example are as follows:
 #
@@ -113,11 +136,13 @@ sub custom_line {
 ###############################################################################
 # Do not edit beyond this point
 
-	return 0;
+    return 0;
 }
 
 1;
+```
 {{< /highlight >}}
+<!-- markdownlint-enable MD031-->
 
 At this point, you can restart csf and lfd with: `csf -ra`.
 
@@ -131,13 +156,17 @@ At this point, you can restart csf and lfd with: `csf -ra`.
 
 You can test if this rule has worked with the following bash one-liner:
 
+<!-- markdownlint-disable MD031-->
 {{< highlight bash >}}
+```bash
 while true; do curl -X POST http://www.example.com/xmlrpc.php ; done
+```
 {{< /highlight >}}
+<!-- markdownlint-enable MD031-->
 
 This will simulate the attack, and will trigger the rule. You can confirm the rule has been trigged by checking `/var/log/lfd.log` - you will see a line similar to this:
 
-```
+```markup
 Dec  7 10:18:16 servername lfd[22889]: (xmlrpc) xmlrpc.php POST attack from 198.51.100.45 (GB/United Kingdom/example.org): 20 in the last 3600 secs - *Blocked in csf* [LF_CUSTOMTRIGGER]
 ```
 
@@ -145,12 +174,13 @@ Dec  7 10:18:16 servername lfd[22889]: (xmlrpc) xmlrpc.php POST attack from 198.
 
 To unblock an IP, the easiest and quickest method is on the CLI:
 
-```
+```bash
 csf -dr 198.51.100.45
 ```
+
 And to whitelist that IP in future:
 
-```
+```bash
 csf -a 198.51.100.45 [optional comment]
 ```
 

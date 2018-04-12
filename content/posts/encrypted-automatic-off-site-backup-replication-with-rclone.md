@@ -37,9 +37,8 @@ However, it is important to set up both a configuration for your cloud storage p
 
 ### Example configuration
 
-<!-- markdownlint-disable MD031-->
+<!-- markdownlint-disable MD034 -->
 {{< highlight ini >}}
-```ini
 [memset]
 type = swift
 user = *backup user*
@@ -58,9 +57,8 @@ remote = memset:server1.example.com
 filename_encryption = off
 password = *super_secret_password*
 password2 = *super_secret_salt*
-```
 {{< /highlight >}}
-<!-- markdownlint-enable MD031-->
+<!-- markdownlint-enable MD034 -->
 
 ## Piecing it all together
 
@@ -80,9 +78,8 @@ Create and open the file `/etc/rclone/jobs.yml`.
 
 Some sample content for this file is as follows:
 
-<!-- markdownlint-disable MD031-->
+<!-- markdownlint-disable MD006 MD032-->
 {{< highlight yaml >}}
-```yaml
 tasks:
   - name: backup_something
     local: "/path/to/sync"
@@ -92,9 +89,8 @@ tasks:
     local: "/another/path/to/sync"
     remote: "memset_crypt:another/path/to/remote"
     operation: sync
-```
 {{< /highlight >}}
-<!-- markdownlint-enable MD031-->
+<!-- markdownlint-enable MD032-->
 
 ### Breakdown of jobs.yml
 

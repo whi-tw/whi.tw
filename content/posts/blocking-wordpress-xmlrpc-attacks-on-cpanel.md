@@ -11,16 +11,14 @@ A very common DOS attack on a cPanel server is against the WordPress API scripts
 
 If you have been subjected to this kind of attack in the past, and have attempted to prevent reoccurrence, you will likely know that the oft-quoted .htaccess solutions, such as:
 
-<!-- markdownlint-disable MD031-->
+<!-- markdownlint-disable MD033-->
 {{< highlight apache >}}
-```apache
 <Files xmlrpc.php>
         order deny,allow
         deny from all
 </Files>
-```
 {{< /highlight >}}
-<!-- markdownlint-enable MD031-->
+<!-- markdownlint-enable MD033-->
 
 Have limited success in mitigating this kind of attack.
 
@@ -49,23 +47,15 @@ I discovered recently that the popular software firewall [ConfigServer Security 
 
 Open `/etc/csf/csf.conf` in an editor, and locate the line:
 
-<!-- markdownlint-disable MD031-->
 {{< highlight ini>}}
-```ini
 CUSTOM1_LOG = "/var/log/customlog"
-```
 {{< /highlight >}}
-<!-- markdownlint-enable MD031-->
 
 Change this to read:
 
-<!-- markdownlint-disable MD031-->
 {{< highlight ini>}}
-```ini
 CUSTOM1_LOG =  "/usr/local/apache/domlogs/*/*"
-```
 {{< /highlight >}}
-<!-- markdownlint-enable MD031-->
 
 Save and close this file.
 
@@ -73,19 +63,14 @@ Save and close this file.
 
 First create a copy of the file:
 
-<!-- markdownlint-disable MD031-->
 {{< highlight bash >}}
-```bash
 cp /etc/csf/regex.custom.pm /etc/csf/regex.custom.pm.bak
-```
 {{< /highlight >}}
-<!-- markdownlint-enable MD031-->
 
 Now open the file in an editor and replace the contents with the following:
 
-<!-- markdownlint-disable MD031-->
+<!-- markdownlint-disable MD003 MD012 MD018 MD019 MD022 MD024 MD034 MD026-->
 {{< highlight perl >}}
-```perl
 #!/usr/local/cpanel/3rdparty/bin/perl
 ###############################################################################
 # Copyright 2006-2016, Way to the Web Limited
@@ -140,13 +125,14 @@ sub custom_line {
 }
 
 1;
-```
 {{< /highlight >}}
-<!-- markdownlint-enable MD031-->
+<!-- markdownlint-enable MD003 MD012 MD018 MD019 MD022 MD024-->
 
 At this point, you can restart csf and lfd with: `csf -ra`.
 
+<!-- markdownlint-disable MD001 MD022-->
 ### Testing the rule
+<!-- markdownlint-enable MD001 MD022-->
 
 > **HERE BE DRAGONS**
 >
@@ -156,13 +142,11 @@ At this point, you can restart csf and lfd with: `csf -ra`.
 
 You can test if this rule has worked with the following bash one-liner:
 
-<!-- markdownlint-disable MD031-->
+<!-- markdownlint-disable MD034-->
 {{< highlight bash >}}
-```bash
 while true; do curl -X POST http://www.example.com/xmlrpc.php ; done
-```
 {{< /highlight >}}
-<!-- markdownlint-enable MD031-->
+<!-- markdownlint-enable MD034-->
 
 This will simulate the attack, and will trigger the rule. You can confirm the rule has been trigged by checking `/var/log/lfd.log` - you will see a line similar to this:
 

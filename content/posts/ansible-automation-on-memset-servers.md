@@ -28,9 +28,7 @@ This is located at `/etc/ansible/hosts` by default.
 
 The following is an example of a simple inventory:
 
-<!-- markdownlint-disable MD031-->
 {{< highlight ini >}}
-```ini
 [web]
 testyaa46.miniserver.com
 testyaa61.miniserver.com
@@ -38,9 +36,7 @@ testyaa61.miniserver.com
 [mariadb]
 testyaa21.miniserver.com
 testyaa49.miniserver.com
-```
 {{< /highlight >}}
-<!-- markdownlint-enable MD031-->
 
 This defines two groups of servers: web and mariadb.
 
@@ -48,24 +44,17 @@ Ansible automatically collects information about the servers on each run, which 
 
 Custom variables can be assigned to individual hosts in the inventory:
 
-<!-- markdownlint-disable MD031-->
 {{< highlight ini >}}
-```ini
 [web]
 testyaa46.miniserver.com ansible_ssh_user=tom nickname=webhost1
-```
 {{< /highlight >}}
-<!-- markdownlint-enable MD031-->
 
 Or to groups:
 
-<!-- markdownlint-disable MD031-->
 {{< highlight ini >}}
-```ini
 [web:vars]
 ansible_ssh_user=tom
 http_port=80
-```
 {{< /highlight >}}
 <!-- markdownlint-enable MD031-->
 
@@ -132,9 +121,8 @@ A common method for this would be:
 
 With ansible, this can be done with the following Playbook:
 
-<!-- markdownlint-disable MD031-->
+<!-- markdownlint-disable MD003 MD007 MD022 MD032 -->
 {{< highlight yaml >}}
-```yaml
 ---
 - hosts: memset-linux
   tasks:
@@ -152,9 +140,8 @@ With ansible, this can be done with the following Playbook:
         key: "{{ item }}"
       with_fileglob:
         - "/path/to/unauthorized/*"
-```
 {{< /highlight >}}
-<!-- markdownlint-enable MD031-->
+<!-- markdownlint-enable MD003 MD007 MD022 MD032 -->
 
 Where:
 
@@ -163,9 +150,8 @@ Where:
 
 Another possible use is updating the Message of the Day on the server with some information about the server from your Memset account, using the variables the [script](https://github.com/Memset/memset-ansible-dynamic-inventory) provides:
 
-<!-- markdownlint-disable MD031-->
+<!-- markdownlint-disable-->
 {{< highlight yaml >}}
-```yaml
 ---
 - hosts: memset-linux
   tasks:
@@ -175,21 +161,18 @@ Another possible use is updating the Message of the Day on the server with some 
         dest: "/etc/motd"
         backup: no
       when: memset_nickname is defined
-```
 {{< /highlight >}}
-<!-- markdownlint-enable MD031-->
+<!-- markdownlint-enable -->
 
 Content of motd.j2:
 
 <!-- markdownlint-disable MD031-->
 {{< highlight twig >}}
-```twig
 {% if memset_nickname != '' %}Description: {{ memset_nickname }}{% endif %}
 
 {% if memset_data_zone != '' %}Datacenter: {{ memset_network_zone }}{% endif %}
 
 {% if memset_firewall_rule_group_nickname != '' %}Firewall Group: {{ memset_firewall_rule_group_nickname }}{% endif %}
-```
 {{< /highlight >}}
 <!-- markdownlint-enable MD031-->
 

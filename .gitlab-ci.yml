@@ -18,8 +18,8 @@ build:
     - export DOCKER_HOST="tcp://localhost:2375"
     - docker version
     - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
-    - ./hugo -b "https://indev.whitwell.xyz" --enableGitInfo --debug -d dev
-    - ./hugo -b "https://tom.whitwell.xyz" -d prod
+    - hugo -b "https://indev.whitwell.xyz" --enableGitInfo --debug -d dev
+    - hugo -b "https://tom.whitwell.xyz" -d prod
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" .
     - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
   variables:

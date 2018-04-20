@@ -10,14 +10,12 @@ check-markdown:
   script: markdownlint content/
 
 build:
-  image: docker:git
+  image: tnwhitwell/docker-hugo-builder:0.38.2
   services:
     - docker:dind
   stage: build
   script:
     - export DOCKER_HOST="tcp://localhost:2375"
-    - curl -Lo hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.38.2/hugo_0.38.2_Linux-64bit.tar.gz
-    - tar xzf hugo.tar.gz hugo && chmod +x hugo
     - docker version
     - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
     - ./hugo -b "https://indev.whitwell.xyz" --enableGitInfo --debug -d dev

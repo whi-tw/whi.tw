@@ -26,12 +26,11 @@ build:
     GIT_SUBMODULE_STRATEGY: recursive
 
 k8s-deploy-dev:
-  image: docker:git
+  image: tnwhitwell/docker-kubectl:v1.10.0
   services:
     - docker:dind
   stage: deploy
   script:
-    - curl -Lo /bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/linux/amd64/kubectl && chmod +x /bin/kubectl
     - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials admin --token="$K8S_TOKEN"
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
@@ -47,12 +46,11 @@ k8s-deploy-dev:
     - master
 
 k8s-deploy-prod:
-  image: docker:git
+  image: tnwhitwell/docker-kubectl:v1.10.0
   services:
     - docker:dind
   stage: deploy
   script:
-    - curl -Lo /bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/linux/amd64/kubectl && chmod +x /bin/kubectl
     - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials admin --token="$K8S_TOKEN"
     - kubectl config set-context default-context --cluster=my-cluster --user=admin

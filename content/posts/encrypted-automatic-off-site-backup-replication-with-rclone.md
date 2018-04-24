@@ -15,7 +15,7 @@ This guide does not deal with the creation of the backups themselves, it assumes
 ## Installation
 <!-- markdownlint-enable MD002 MD022-->
 
-rclone is not shipped as a traditional package, and must be installed from the archives provided [on the website](https://rclone.org/downloads/). Once downloaded, place the rclone binary somewhere on the machine where it is accessible to the user running the backup. On *nix systems, I have the binary installed at: /usr/bin/rclone.
+rclone is not shipped as a traditional package, and must be installed from the archives provided [on the website](https://rclone.org/downloads/). Once downloaded, place the rclone binary somewhere on the machine where it is accessible to the user running the backup. On *nix systems, I have the binary installed at: `/usr/bin/rclone`.
 
 Ensure it is executable (`chmod +x /usr/bin/rclone`).
 

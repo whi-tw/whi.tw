@@ -2,6 +2,19 @@ baseURL = "https://indev.whitwell.xyz/"
 languageCode = "en-gb"
 title = "Tom Whitwell"
 theme = "nix"
+disqusShortname = "tom-whitwell-xyz"
+
+# Menu Links
+[menu]
+    [[menu.header]]
+        name = "Posts"
+        weight = 1
+        url = "/posts/"
+    [[menu.header]]
+        name = "About"
+        weight = 0
+        url = "/about/"
+
 # Theme Parameters
 [params]
     GnuPGFingerprint = "2FF4C64C9183D2FE"
@@ -29,14 +42,3 @@ theme = "nix"
     GoogleAnalytics = "UA-51691857-1"
     PayPalMeID = "tnwhitwell"
     #XingURL = "https://www.xing.com/profile/..."
-
-# Menu Links
-[menu]
-    [[menu.header]]
-        name = "Posts"
-        weight = 1
-        url = "/posts/"
-    [[menu.header]]
-        name = "About"
-        weight = 0
-        url = "/about/"

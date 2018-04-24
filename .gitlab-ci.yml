@@ -10,7 +10,7 @@ check-markdown:
   script: markdownlint content/
 
 build:
-  image: tnwhitwell/docker-hugo-builder:0.38.2
+  image: tnwhitwell/docker-hugo-builder:0.40
   services:
     - docker:dind
   stage: build

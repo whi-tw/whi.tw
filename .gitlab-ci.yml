@@ -18,8 +18,8 @@ build:
     - export DOCKER_HOST="tcp://localhost:2375"
     - docker version
     - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
-    - hugo -b "https://indev.whitwell.xyz" --enableGitInfo --debug -d dev
-    - hugo -b "https://tom.whitwell.xyz" -d prod
+    - hugo -b "https://dev.whi.tw/ell" --enableGitInfo --debug -d dev
+    - hugo -b "https://whi.tw/ell" -d prod
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" .
     - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
   variables:
@@ -38,10 +38,10 @@ k8s-deploy-dev:
     - kubectl get cs
     - kubectl delete secrets my-gitlab -n my-website-dev || true
     - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-dev/'  | kubectl create -f -"
-    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev indev.whitwell.xyz
+    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev dev.whi.tw/ell
   environment:
     name: dev
-    url: https://indev.whitwell.xyz
+    url: https://dev.whi.tw/ell
   only:
     - master
 
@@ -58,9 +58,9 @@ k8s-deploy-prod:
     - kubectl get cs
     - kubectl delete secrets my-gitlab -n my-website-prod || true
     - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-prod/'  | kubectl create -f -"
-    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod tom.whitwell.xyz
+    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod whi.tw/ell
   environment:
     name: prod
-    url: https://tom.whitwell.xyz
+    url: https://whi.tw/ell
   only:
     - tags

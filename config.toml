@@ -17,7 +17,7 @@ disqusShortname = "tom-whitwell-xyz"
 
 # Theme Parameters
 [params]
-    GnuPGFingerprint = "2FF4C64C9183D2FE"
+    GnuPGFingerprint = "AEB96AF234385E116FC62A142FF4C64C9183D2FE"
     #StackExchangeID = "your_stackexchange_id"
     #StackOverflowID = "your_stackoverflow_id"
     GithubID = "tnwhitwell"

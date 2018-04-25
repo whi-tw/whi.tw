@@ -61,7 +61,7 @@ k8s-deploy-prod:
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod whi.tw
   environment:
     name: prod
-    DOLLAR: "$"
+    dollar: $
     url: https://whi.tw/ell
   only:
     - tags

@@ -38,7 +38,7 @@ k8s-deploy-dev:
     - kubectl get cs
     - kubectl delete secrets my-gitlab -n my-website-dev || true
     - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-dev/'  | kubectl create -f -"
-    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev dev.whi.tw/ell
+    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev dev.whi.tw
   environment:
     name: dev
     url: https://dev.whi.tw/ell
@@ -58,7 +58,7 @@ k8s-deploy-prod:
     - kubectl get cs
     - kubectl delete secrets my-gitlab -n my-website-prod || true
     - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-prod/'  | kubectl create -f -"
-    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod whi.tw/ell
+    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod whi.tw
   environment:
     name: prod
     url: https://whi.tw/ell

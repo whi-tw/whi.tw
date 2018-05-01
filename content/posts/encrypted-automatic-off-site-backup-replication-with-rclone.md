@@ -132,4 +132,4 @@ The script was knocked together pretty quickly to avoid backups running at the s
 
 Another addition will be to allow different schedules per-job. That will involve a different scheduler than cron, though. Or - thinking about it, it could be a flag. I will try to get on this and update when it's done!
 
-If you use this, let me know in the comments, or [by email](mailto:hi@whitwell.xyz) - if you have any thoughts on improvements, it would be appreciated!
+If you use this, let me know in the comments, or [by email](mailto:hi@whi.tw) - if you have any thoughts on improvements, it would be appreciated!

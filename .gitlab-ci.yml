@@ -19,8 +19,9 @@ build:
     - docker version
     - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
     - hugo -b "https://dev.whi.tw/ell" --enableGitInfo --debug -d dev
-    - hugo -b "https://dev.whi.tw/ell/amp" --enableGitInfo --debug -d dev --config amp.toml -d public/amp
+    - hugo -b "https://dev.whi.tw/ell/amp" --enableGitInfo --debug --config amp.toml -d dev/amp
     - hugo -b "https://whi.tw/ell" -d prod
+    - hugo -b "https://whi.tw/ell/amp" --config amp.toml -d prod/amp
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" .
     - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
   variables:

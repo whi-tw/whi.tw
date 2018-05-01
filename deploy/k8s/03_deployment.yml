@@ -6,7 +6,7 @@ metadata:
     app: my-website-${NAMESPACE}
   namespace: my-website-${NAMESPACE}
 spec:
-  replicas: 4
+  replicas: 2
   strategy:
     rollingUpdate:
       maxSurge: 1

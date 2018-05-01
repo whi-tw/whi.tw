@@ -15,6 +15,10 @@ canonifyurls = true
 
 [menu]
     [[menu.main]]
-        name = "About"
+        name = "Home"
         weight = 0
+        url = "/"
+    [[menu.main]]
+        name = "About"
+        weight = 1
         url = "/about/"

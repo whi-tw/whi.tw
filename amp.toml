@@ -1,0 +1,20 @@
+theme="amp"
+baseurl = "https://dev.whi.tw/ell/amp"
+title = "Tom Whitwell"
+copyright = "© 2018 Copyright Text"
+canonifyurls = true
+
+[params]
+  googleanalytics = "UA-51691857-1" # optional
+
+# optional
+[social]
+  twitter = "tnwhitwell"
+  github = "tnwhitwell"
+  linkedin = "tnwhitwell"
+
+[menu]
+    [[menu.main]]
+        name = "About"
+        weight = 0
+        url = "/about/"

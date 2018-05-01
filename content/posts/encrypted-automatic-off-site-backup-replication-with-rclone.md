@@ -37,8 +37,7 @@ However, it is important to set up both a configuration for your cloud storage p
 
 ### Example configuration
 
-<!-- markdownlint-disable MD034 -->
-{{< highlight ini >}}
+```ini
 [memset]
 type = swift
 user = *backup user*
@@ -57,8 +56,7 @@ remote = memset:server1.example.com
 filename_encryption = off
 password = *super_secret_password*
 password2 = *super_secret_salt*
-{{< /highlight >}}
-<!-- markdownlint-enable MD034 -->
+```
 
 ## Piecing it all together
 
@@ -78,8 +76,7 @@ Create and open the file `/etc/rclone/jobs.yml`.
 
 Some sample content for this file is as follows:
 
-<!-- markdownlint-disable MD006 MD032-->
-{{< highlight yaml >}}
+```yaml
 tasks:
   - name: backup_something
     local: "/path/to/sync"
@@ -89,8 +86,7 @@ tasks:
     local: "/another/path/to/sync"
     remote: "memset_crypt:another/path/to/remote"
     operation: sync
-{{< /highlight >}}
-<!-- markdownlint-enable MD032-->
+```
 
 ### Breakdown of jobs.yml
 
@@ -120,7 +116,7 @@ If the on-demand run completed successfully, you can now set the jobs to run wit
 1. If you would like the backups run as root, a simple symlink in one of the `/etc/cron.{hourly,daily,weekly}` directories will suffice: `ln -s /opt/scripts/rcbackup.py /etc/cron.daily/backup-sync`.
 1. If you would like the script run as a different user (backup-user in this example), create a file at `/etc/cron.d/backup-sync` with the following contents. The time selection is obviously more fine-grained in this example as well.
 
-```markup
+```cron
 00 00 * * * backup-user /opt/scripts/rcbackup.py
 ```
 

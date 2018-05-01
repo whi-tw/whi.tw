@@ -21,14 +21,11 @@ Ensure it is executable (`chmod +x /usr/bin/rclone`).
 
 You should now be able to run it:
 
-```markup
-tom@localhost:~ rclone
+```shell
+$ rclone
 Usage:
   rclone [flags]
   rclone [command]
-
-Available Commands:
-...
 ```
 
 Next is time for configuration. This is best not repeated here - use the [documentation](https://rclone.org/docs/#configure) on the maintainer's site.

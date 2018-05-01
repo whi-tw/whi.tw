@@ -119,14 +119,20 @@ Dec  7 10:18:16 servername lfd[22889]: (xmlrpc) xmlrpc.php POST attack from 198.
 
 To unblock an IP, the easiest and quickest method is on the CLI:
 
-```bash
-csf -dr 198.51.100.45
+```shell
+$ csf -dr 198.51.100.45
+Removing rule...
+DROP  all opt -- in !lo out *  198.51.100.45  -> 0.0.0.0/0
+LOGDROPOUT  all opt -- in * out !lo  0.0.0.0/0  -> 198.51.100.45
 ```
 
 And to whitelist that IP in future:
 
-```bash
-csf -a 198.51.100.45 [optional comment]
+```shell
+$ csf -a 198.51.100.45
+Adding 198.51.100.45 to csf.allow and iptables ACCEPT...
+ACCEPT  all opt -- in !lo out *  198.51.100.45  -> 0.0.0.0/0
+ACCEPT  all opt -- in * out !lo  0.0.0.0/0  -> 198.51.100.45
 ```
 
 If you would prefer, the block can be removed from the WebUI:

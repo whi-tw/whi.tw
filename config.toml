@@ -2,7 +2,7 @@ baseURL = "https://dev.whi.tw/ell"
 languageCode = "en-gb"
 title = "Tom Whitwell"
 theme = "nix"
-disqusShortname = "tom-whitwell-xyz"
+disqusShortname = "whi-tw"
 
 # Menu Links
 [menu]

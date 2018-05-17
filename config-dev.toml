@@ -17,7 +17,7 @@ disqusShortname = "dev-whi-tw"
 
 # Theme Parameters
 [params]
-    GnuPGFingerprint = "AEB96AF234385E116FC62A142FF4C64C9183D2FE"
+    GnuPGFingerprint = "A7A7AC2510B8C0DB82D9CC62CDEFD21A6438FA40"
     #StackExchangeID = "your_stackexchange_id"
     #StackOverflowID = "your_stackoverflow_id"
     GithubID = "tnwhitwell"

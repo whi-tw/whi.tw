@@ -45,7 +45,7 @@ k8s-deploy-dev:
     name: dev
     url: https://dev.whi.tw/ell
   only:
-    - master
+    - develop
 
 k8s-deploy-prod:
   image: tnwhitwell/docker-kubectl:v1.10.0
@@ -65,4 +65,4 @@ k8s-deploy-prod:
     name: prod
     url: https://whi.tw/ell
   only:
-    - tags
+    - master

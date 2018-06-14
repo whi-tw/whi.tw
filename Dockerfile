@@ -8,8 +8,6 @@ COPY prod /usr/share/nginx/prod/ell
 COPY run.sh /run.sh
 COPY deploy/nginx/default.conf /etc/nginx/conf.d/default.conf.template
 
-RUN chown -R nginx:nginx /usr/share/nginx
-
-STOPSIGNAL SIGKILL
+RUN chown -R nginx:nginx /usr/share/nginx && chmod +x /run.sh
 
 CMD /run.sh

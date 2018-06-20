@@ -37,9 +37,6 @@ k8s-deploy-dev:
     - kubectl config set-credentials admin --token="$K8S_TOKEN"
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context
-    - kubectl get cs
-    - kubectl delete secrets my-gitlab -n my-website-dev || true
-    - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-dev/'  | kubectl create -f -"
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev dev.whi.tw
   environment:
     name: dev
@@ -57,9 +54,6 @@ k8s-deploy-prod:
     - kubectl config set-credentials admin --token="$K8S_TOKEN"
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context
-    - kubectl get cs
-    - kubectl delete secrets my-gitlab -n my-website-prod || true
-    - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-prod/'  | kubectl create -f -"
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod whi.tw
   environment:
     name: prod

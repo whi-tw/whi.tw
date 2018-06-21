@@ -2,6 +2,7 @@ stages:
   - test
   - build
   - deploy
+  - check
 before_script:
   - apk --no-cache add curl gettext
 check-markdown:
@@ -59,3 +60,9 @@ k8s-deploy-prod:
     url: https://whi.tw/ell
   only:
     - master
+  check-up:
+    image: alpine:latest
+    stage: check
+    script:
+      - while ! kubectl rollout status deployment/my-website-${CI_ENVIRONMENT_NAME} -n my-website-${CI_ENVIRONMENT_NAME}; do sleep 1; done
+

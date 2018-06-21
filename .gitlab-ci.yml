@@ -60,9 +60,13 @@ k8s-deploy-prod:
     url: https://whi.tw/ell
   only:
     - master
-  check_up:
-    image: alpine:latest
-    stage: check
-    script:
-      - while ! kubectl rollout status deployment/my-website-${CI_ENVIRONMENT_NAME} -n my-website-${CI_ENVIRONMENT_NAME}; do sleep 1; done
+
+check-deploy-finished:
+  image: alpine:latest
+  stage: check
+  script:
+    - while ! kubectl rollout status deployment/my-website-${CI_ENVIRONMENT_NAME} -n my-website-${CI_ENVIRONMENT_NAME}; do sleep 1; done
+  only:
+    - master
+    - develop
 

@@ -60,7 +60,7 @@ k8s-deploy-prod:
     url: https://whi.tw/ell
   only:
     - master
-  check-up:
+  check_up:
     image: alpine:latest
     stage: check
     script:

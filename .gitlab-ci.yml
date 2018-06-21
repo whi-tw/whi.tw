@@ -18,10 +18,8 @@ build:
     - export DOCKER_HOST="tcp://localhost:2375"
     - docker version
     - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
-    - hugo -b "https://dev.whi.tw/ell" --enableGitInfo --debug -d dev --config config-dev.toml
-    - hugo -b "https://dev.whi.tw/ell/amp" --enableGitInfo --debug --config amp.toml -d dev/amp
-    - hugo -b "https://whi.tw/ell" -d prod
-    - hugo -b "https://whi.tw/ell/amp" --config amp.toml -d prod/amp
+    - hugo -b "https://whi.tw/ell" -d public
+    - hugo -b "https://whi.tw/ell/amp" --config amp.toml -d public/amp
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" .
     - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
   variables:
@@ -43,6 +41,7 @@ k8s-deploy-dev:
     url: https://dev.whi.tw/ell
   only:
     - develop
+    - master
 
 k8s-deploy-prod:
   image: tnwhitwell/docker-kubectl:v1.10.0

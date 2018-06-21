@@ -1,6 +1,7 @@
 FROM tnwhitwell/docker-nginx-no-kube-probelogs:1.13.12
 
-MAINTAINER Tom Whitwell version: 1.0.3
+LABEL "tw.whi"="Tom Whitwell"
+LABEL maintainer="tom@whi.tw"
 
 RUN mkdir /usr/share/nginx/site
 COPY public /usr/share/nginx/site/ell

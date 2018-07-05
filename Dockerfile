@@ -1,14 +1,12 @@
 FROM tnwhitwell/docker-nginx-no-kube-probelogs:1.13.12
 
-MAINTAINER Tom Whitwell version: 1.0.3
+LABEL "tw.whi"="Tom Whitwell"
+LABEL maintainer="tom@whi.tw"
 
-RUN mkdir /usr/share/nginx/dev /usr/share/nginx/prod
-COPY dev /usr/share/nginx/dev/ell
-COPY prod /usr/share/nginx/prod/ell
-COPY deploy/nginx/default.conf /etc/nginx/conf.d/default.conf.template
+RUN mkdir /usr/share/nginx/site
+COPY public /usr/share/nginx/site/ell
+COPY deploy/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 RUN chown -R nginx:nginx /usr/share/nginx
 
-STOPSIGNAL SIGKILL
-
-CMD /bin/sh -c "sed 's/_ENVIRONMENT_/${ENVIRONMENT}/' /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;' || cat /etc/nginx/conf.d/default.conf"
+CMD nginx -g 'daemon off;' || cat /etc/nginx/conf.d/default.conf

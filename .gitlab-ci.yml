@@ -18,10 +18,8 @@ build:
     - export DOCKER_HOST="tcp://localhost:2375"
     - docker version
     - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
-    - hugo -b "https://dev.whi.tw/ell" --enableGitInfo --debug -d dev --config config-dev.toml
-    - hugo -b "https://dev.whi.tw/ell/amp" --enableGitInfo --debug --config amp.toml -d dev/amp
-    - hugo -b "https://whi.tw/ell" -d prod
-    - hugo -b "https://whi.tw/ell/amp" --config amp.toml -d prod/amp
+    - hugo -b "https://whi.tw/ell" -d public
+    - hugo -b "https://whi.tw/ell/amp" --config amp.toml -d public/amp
     - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" .
     - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
   variables:
@@ -37,15 +35,13 @@ k8s-deploy-dev:
     - kubectl config set-credentials admin --token="$K8S_TOKEN"
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context
-    - kubectl get cs
-    - kubectl delete secrets my-gitlab -n my-website-dev || true
-    - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-dev/'  | kubectl create -f -"
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev dev.whi.tw
   environment:
     name: dev
     url: https://dev.whi.tw/ell
   only:
     - develop
+    - master
 
 k8s-deploy-prod:
   image: tnwhitwell/docker-kubectl:v1.10.0
@@ -57,9 +53,6 @@ k8s-deploy-prod:
     - kubectl config set-credentials admin --token="$K8S_TOKEN"
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context
-    - kubectl get cs
-    - kubectl delete secrets my-gitlab -n my-website-prod || true
-    - "kubectl get secrets my-gitlab -n kube-system -o yaml | sed 's/namespace: kube-system/namespace: my-website-prod/'  | kubectl create -f -"
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod whi.tw
   environment:
     name: prod

@@ -25,5 +25,5 @@ Outside of work, I am a freelance IT Consultant, an Explorer Scout leader and a
 
 ### Professional Scrum Foundation
 
- **LPIC-1**: Valid 05/07/2018 [[Verify]](https://www.scrum.org/user/367963)
+ **PSM 1**: Valid 05/07/2018 [[Verify]](https://www.scrum.org/user/367963)
  [[Certificate]](../pdfs/Tom-Whitwell-PSM-I.pdf)

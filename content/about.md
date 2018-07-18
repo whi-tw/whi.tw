@@ -3,9 +3,7 @@ title: "About"
 date: 2018-01-03T14:05:53+01:00
 draft: false
 showthedate: false
----
-
-
+--
 <!-- markdownlint-disable MD002 MD022 -->
 ## Certifications
 <!-- markdownlint-enable MD002 MD022 -->

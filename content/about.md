@@ -5,7 +5,6 @@ draft: false
 showthedate: false
 ---
 
- Raspberry Pi enthusiast.
 
 <!-- markdownlint-disable MD002 MD022 -->
 ## Certifications

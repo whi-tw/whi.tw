@@ -5,13 +5,6 @@ draft: false
 showthedate: false
 ---
 
-I'm a Linux Systems Administrator at [Memset](https://www.memset.com), an award
--winning provider of dedicated servers, VPS (virtual servers), managed hosting,
- and cloud IaaS in the South of England.
-
-Outside of work, I am a freelance IT Consultant, an Explorer Scout leader and a
- Raspberry Pi enthusiast.
-
 <!-- markdownlint-disable MD002 MD022 -->
 ## Certifications
 <!-- markdownlint-enable MD002 MD022 -->
@@ -21,4 +14,9 @@ Outside of work, I am a freelance IT Consultant, an Explorer Scout leader and a
 **ID**: LPI000339832
 
 **LPIC-1**: Valid 01/03/2018 - 01/03/2023 [[Verify]](https://lpi.org/v/LPI000339832/fu6k5s4ztn)
- [[Certificate]](/pdfs/Tom-Whitwell-LPIC-1.pdf)
+ [[Certificate]](../pdfs/Tom-Whitwell-LPIC-1.pdf)
+
+### Professional Scrum Foundation
+
+ **PSM 1**: Valid 05/07/2018 [[Verify]](https://www.scrum.org/user/367963)
+ [[Certificate]](../pdfs/Tom-Whitwell-PSM-I.pdf)

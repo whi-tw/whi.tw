@@ -10,6 +10,7 @@ inputs:
 
 run:
   path: hugo
+  dir: website_source
   args:
     - -b
     - https://whi.tw/ell

@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -euxo pipefail
+#!/usr/bin/env sh
 
 cd website_source
 ls

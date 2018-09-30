@@ -9,5 +9,6 @@ jobs:
   - name: get source and build site
     plan:
       - get: website_source
+        trigger: true
       - task: build
-        file: website_source/ci/build.yml
+        file: website_source/ci/tasks/build.yml

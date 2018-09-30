@@ -9,10 +9,4 @@ inputs:
   - name: website_source
 
 run:
-  path: hugo
-  dir: website_source
-  args:
-    - -b
-    - https://whi.tw/ell
-    - -d
-    - public
+  path: ./website_source/ci/scripts/build_with_hugo.sh

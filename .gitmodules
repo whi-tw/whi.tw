@@ -1,6 +1,7 @@
 [submodule "themes/nix"]
 	path = themes/nix
 	url = https://github.com/tnwhitwell/hugo-theme-nix
+	branch = master
 [submodule "themes/amp"]
 	path = themes/amp
 	url = https://github.com/tnwhitwell/amp

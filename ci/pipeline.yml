@@ -1,0 +1,13 @@
+---
+resources:
+  - name: website_source
+    type: git
+    source: &repo-source
+      uri: https://github.com/tnwhitwell/whi.tw
+      branch: develop
+jobs:
+  - name: get source and build site
+    plan:
+      - get: website_source
+      - task: build
+        file: website_source/ci/build.yml

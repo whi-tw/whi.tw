@@ -9,4 +9,5 @@ inputs:
   - name: website_source
 
 run:
-  path: ./website_source/ci/scripts/build_with_hugo.sh
+  dir: website_source
+  path: ./ci/scripts/build_with_hugo.sh

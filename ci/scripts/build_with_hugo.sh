@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-cd website_source
-ls
+hugo -b "https://whi.tw/ell" -d public
+hugo -b "https://whi.tw/ell/amp" --config amp.toml -d public/amp

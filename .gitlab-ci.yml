@@ -90,6 +90,9 @@ k8s-deploy-prod:
 check-deploy-finished:
   image: tnwhitwell/docker-kubectl:v1.10.0
   stage: check
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${kube_config} | base64 -d > ${KUBECONFIG}
   script:
     - while ! kubectl rollout status deployment/my-website-${CI_ENVIRONMENT_NAME} -n my-website-${CI_ENVIRONMENT_NAME}; do sleep 1; done
   only:

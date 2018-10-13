@@ -36,6 +36,8 @@ build:
 release:
   stage: release
   image: docker:latest
+  services:
+    - docker:dind
   variables:
     DOCKER_HOST: tcp://localhost:2375
   script:

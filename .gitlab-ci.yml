@@ -14,7 +14,6 @@ variables:
   DOCKER_DRIVER: overlay2
 
   KUBECONFIG: /etc/deploy/config
-  DEV_NAMESPACE: my-website-dev
   PROD_NAMESPACE: my-website-prod
 
 check-markdown:
@@ -51,25 +50,6 @@ release:
     - docker push ${CONTAINER_IMAGE}
     - docker push ${CONTAINER_IMAGE_LATEST}
 
-k8s-deploy-dev:
-  image: tnwhitwell/docker-kubectl:v1.10.0
-  services:
-    - docker:dind
-  stage: deploy
-  before_script:
-    - mkdir -p /etc/deploy
-    - echo ${kube_config} | base64 -d > ${KUBECONFIG}
-    - kubectl config use-context default-context
-    - apk --update add gettext
-  script:
-    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev dev.whi.tw
-  environment:
-    name: dev
-    url: https://dev.whi.tw/ell
-  only:
-    - develop
-    - master
-
 k8s-deploy-prod:
   image: tnwhitwell/docker-kubectl:v1.10.0
   services:
@@ -79,6 +59,7 @@ k8s-deploy-prod:
     - mkdir -p /etc/deploy
     - echo ${kube_config} | base64 -d > ${KUBECONFIG}
     - kubectl config use-context default-context
+    - apk --update add gettext
   script:
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod whi.tw
   environment:
@@ -97,4 +78,3 @@ check-deploy-finished:
     - while ! kubectl rollout status deployment/my-website-${CI_ENVIRONMENT_NAME} -n my-website-${CI_ENVIRONMENT_NAME}; do sleep 1; done
   only:
     - master
-    - develop

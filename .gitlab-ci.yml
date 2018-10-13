@@ -33,7 +33,7 @@ k8s-deploy-dev:
   stage: deploy
   script:
     - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
-    - kubectl config set-credentials admin --token="$K8S_TOKEN"
+    - kubectl config set-credentials admin --token="${K8S_DEPLOY_TOKEN}"
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev dev.whi.tw
@@ -51,7 +51,7 @@ k8s-deploy-prod:
   stage: deploy
   script:
     - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
-    - kubectl config set-credentials admin --token="$K8S_TOKEN"
+    - kubectl config set-credentials admin --token="${K8S_DEPLOY_TOKEN}"
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod whi.tw

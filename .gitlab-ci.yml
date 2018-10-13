@@ -32,7 +32,7 @@ k8s-deploy-dev:
     - docker:dind
   stage: deploy
   script:
-    - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-cluster my-cluster --server="${K8S_DEPLOY_URL}" --insecure-skip-tls-verify=true
     - kubectl config set-credentials admin --token="${K8S_DEPLOY_TOKEN}"
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context
@@ -50,7 +50,7 @@ k8s-deploy-prod:
     - docker:dind
   stage: deploy
   script:
-    - kubectl config set-cluster my-cluster --server="$K8S_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-cluster my-cluster --server="${K8S_DEPLOY_URL}" --insecure-skip-tls-verify=true
     - kubectl config set-credentials admin --token="${K8S_DEPLOY_TOKEN}"
     - kubectl config set-context default-context --cluster=my-cluster --user=admin
     - kubectl config use-context default-context

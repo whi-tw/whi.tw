@@ -27,6 +27,9 @@ build:
   services:
     - docker:dind
   stage: build
+  artifacts:
+    paths:
+     - public/
   script:
     - hugo -b "https://whi.tw/ell" -d public
     - hugo -b "https://whi.tw/ell/amp" --config amp.toml -d public/amp

@@ -1,10 +1,22 @@
+before_script:
+  - apk --no-cache add curl gettext
+
 stages:
   - test
   - build
+  - release
   - deploy
   - check
-before_script:
-  - apk --no-cache add curl gettext
+
+variables:
+  CONTAINER_IMAGE: ${CI_REGISTRY}/${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}
+  CONTAINER_IMAGE_LATEST: ${CI_REGISTRY}/${CI_REGISTRY_IMAGE}:latest
+  DOCKER_DRIVER: overlay2
+
+  KUBECONFIG: /etc/deploy/config
+  DEV_NAMESPACE: my-website-dev
+  PROD_NAMESPACE: my-website-prod
+
 check-markdown:
   image: gouvinb/docker-markdownlint
   stage: test
@@ -17,25 +29,32 @@ build:
   stage: build
   script:
     - export DOCKER_HOST="tcp://localhost:2375"
-    - docker version
-    - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
     - hugo -b "https://whi.tw/ell" -d public
     - hugo -b "https://whi.tw/ell/amp" --config amp.toml -d public/amp
-    - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" .
-    - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
+
+release:
+  stage: release
+  image: docker:latest
+  script:
+    - docker version
+    - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}
+    - docker build --pull -t "${CONTAINER_IMAGE}" .
+    - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE_LATEST}
+    - docker push ${CONTAINER_IMAGE}
+    - docker push ${CONTAINER_IMAGE_LATEST}
 
 k8s-deploy-dev:
   image: tnwhitwell/docker-kubectl:v1.10.0
   services:
     - docker:dind
   stage: deploy
-  script:
-    - kubectl config set-cluster my-cluster --server="${K8S_DEPLOY_URL}" --insecure-skip-tls-verify=true
-    - kubectl config set-credentials admin --token="${K8S_DEPLOY_TOKEN}"
-    - kubectl config set-context default-context --cluster=my-cluster --user=admin
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${kube_config} | base64 -d > ${KUBECONFIG}
     - kubectl config use-context default-context
+  script:
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev dev.whi.tw
   environment:
     name: dev
@@ -49,11 +68,11 @@ k8s-deploy-prod:
   services:
     - docker:dind
   stage: deploy
-  script:
-    - kubectl config set-cluster my-cluster --server="${K8S_DEPLOY_URL}" --insecure-skip-tls-verify=true
-    - kubectl config set-credentials admin --token="${K8S_DEPLOY_TOKEN}"
-    - kubectl config set-context default-context --cluster=my-cluster --user=admin
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${kube_config} | base64 -d > ${KUBECONFIG}
     - kubectl config use-context default-context
+  script:
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod whi.tw
   environment:
     name: prod
@@ -69,4 +88,3 @@ check-deploy-finished:
   only:
     - master
     - develop
-

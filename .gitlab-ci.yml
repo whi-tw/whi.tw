@@ -28,7 +28,6 @@ build:
     - docker:dind
   stage: build
   script:
-    - export DOCKER_HOST="tcp://localhost:2375"
     - hugo -b "https://whi.tw/ell" -d public
     - hugo -b "https://whi.tw/ell/amp" --config amp.toml -d public/amp
   variables:
@@ -37,6 +36,8 @@ build:
 release:
   stage: release
   image: docker:latest
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
   script:
     - docker version
     - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY}

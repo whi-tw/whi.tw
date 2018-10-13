@@ -62,7 +62,7 @@ k8s-deploy-prod:
     - master
 
 check-deploy-finished:
-  image: alpine:latest
+  image: tnwhitwell/docker-kubectl:v1.10.0
   stage: check
   script:
     - while ! kubectl rollout status deployment/my-website-${CI_ENVIRONMENT_NAME} -n my-website-${CI_ENVIRONMENT_NAME}; do sleep 1; done

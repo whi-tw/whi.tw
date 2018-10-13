@@ -59,6 +59,7 @@ k8s-deploy-dev:
   before_script:
     - mkdir -p /etc/deploy
     - echo ${kube_config} | base64 -d > ${KUBECONFIG}
+    - kubectl config get-contexts && cat ${KUBECONFIG}
     - kubectl config use-context default-context
   script:
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev dev.whi.tw

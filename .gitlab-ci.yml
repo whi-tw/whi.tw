@@ -60,6 +60,7 @@ k8s-deploy-dev:
     - mkdir -p /etc/deploy
     - echo ${kube_config} | base64 -d > ${KUBECONFIG}
     - kubectl config use-context default-context
+    - apk --update add gettext
   script:
     - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} dev dev.whi.tw
   environment:

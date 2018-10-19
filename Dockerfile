@@ -5,6 +5,7 @@ LABEL maintainer="tom@whi.tw"
 
 RUN mkdir /usr/share/nginx/site
 COPY public /usr/share/nginx/site/ell
+COPY keybase.txt /usr/share/nginx/site/keybase.txt
 COPY deploy/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 RUN chown -R nginx:nginx /usr/share/nginx

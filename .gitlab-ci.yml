@@ -75,6 +75,6 @@ check-deploy-finished:
     - mkdir -p /etc/deploy
     - echo ${kube_config} | base64 -d > ${KUBECONFIG}
   script:
-    - while ! kubectl rollout status deployment/my-website-${CI_ENVIRONMENT_NAME} -n my-website-${CI_ENVIRONMENT_NAME}; do sleep 1; done
+    - while ! kubectl rollout status deployment/my-website-prod -n my-website-prod; do sleep 1; done
   only:
     - master

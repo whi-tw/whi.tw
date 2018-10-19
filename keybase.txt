@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/tnwhitwell
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://whi.tw
+  * I am tnwhitwell (https://keybase.io/tnwhitwell) on keybase.
+  * I have a public key ASBbrR1PqP3Kk0lSQ96BRCJEuVbJINRzIkt3FdzLBpuqpgo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120dd9567314a911a24f0889e2d2977b9f4080ec15ebfdc3f441c50ae530a5435210a",
+      "host": "keybase.io",
+      "kid": "01205bad1d4fa8fdca93495243de81442244b956c920d473224b7715dccb069baaa60a",
+      "uid": "a04d0fe4e9b58665a483abbf6398e919",
+      "username": "tnwhitwell"
+    },
+    "merkle_root": {
+      "ctime": 1539944039,
+      "hash": "b1668eabddda189f48ee124efc784622f41cf33b76addeff22fb15d6e59f3a7d6e47d69fc8ac8888a00db0fafc848b1bf5cbbc838ca601c924050ee754001290",
+      "hash_meta": "77e686be950d4701b5977f9bbaec0469b7646618ec626fe7f9739e1225e7353e",
+      "seqno": 3819921
+    },
+    "service": {
+      "entropy": "JF/sn7LwSM7O64HiCqhRelxM",
+      "hostname": "whi.tw",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "2.7.3"
+  },
+  "ctime": 1539944053,
+  "expire_in": 504576000,
+  "prev": "be31014fdbb4d7c3874748424d0815ccb9da9e8ad46ffd8e3a0e6119028aa93f",
+  "seqno": 59,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgW60dT6j9ypNJUkPegUQiRLlWySDUcyJLdxXcywabqqYKp3BheWxvYWTESpcCO8QgvjEBT9u018OHR0hCTQgVzLnanorUb/2OOg5hGQKKqT/EIOZPUyHYERVX+exr0UbnqxaVf/kI4otifJJpxldqcdDqAgHCo3NpZ8RAjQQugrAXst+9LIROzhPlzkD7swN8LSbGTupF87RMq3OlqtlCqCuGsVr6pU0C4XN+WBSP9vygaKTUruqCdlVqAqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEILbWv9STiYHXduOYqmbW5oLLXFOsf1Fm268Uf3FAS8UOo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/tnwhitwell
+
+==================================================================

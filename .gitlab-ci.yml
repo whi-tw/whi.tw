@@ -60,20 +60,9 @@ k8s-deploy-prod:
     - echo ${kube_config} | base64 -d > ${KUBECONFIG}
     - kubectl config use-context default-context
   script:
-    - helm upgrade --name my-website ./helm/whi-tw-site --values ./deploy/helm/values.yml --set image.tag=${CI_COMMIT_SHA}
+    - helm upgrade --values ./deploy/helm/values.yml --set image.tag=${CI_COMMIT_SHA} my-website ./helm/whi-tw-site
   environment:
     name: prod
     url: https://whi.tw/ell
-  only:
-    - master
-
-check-deploy-finished:
-  image: tnwhitwell/docker-kubectl:v1.10.0
-  stage: check
-  before_script:
-    - mkdir -p /etc/deploy
-    - echo ${kube_config} | base64 -d > ${KUBECONFIG}
-  script:
-    - while ! kubectl rollout status deployment/my-website-prod -n my-website-prod; do sleep 1; done
   only:
     - master

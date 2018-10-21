@@ -51,7 +51,7 @@ release:
     - docker push ${CONTAINER_IMAGE_LATEST}
 
 k8s-deploy-prod:
-  image: tnwhitwell/docker-kubectl:v1.10.0
+  image: tnwhitwell/docker-kubectl:v1.12.1_v2.11.0
   services:
     - docker:dind
   stage: deploy
@@ -59,9 +59,8 @@ k8s-deploy-prod:
     - mkdir -p /etc/deploy
     - echo ${kube_config} | base64 -d > ${KUBECONFIG}
     - kubectl config use-context default-context
-    - apk --update add gettext
   script:
-    - /bin/sh deploy/deploy.sh ${CI_REGISTRY_IMAGE} ${CI_COMMIT_SHA} prod whi.tw
+    - helm upgrade --name my-website ./helm/whi-tw-site --values ./deploy/helm/values.yml --set image.tag=${CI_COMMIT_SHA}
   environment:
     name: prod
     url: https://whi.tw/ell

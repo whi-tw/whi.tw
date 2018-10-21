@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "whi-tw-site.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "whi-tw-site.name" . }}
+    helm.sh/chart: {{ include "whi-tw-site.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "whi-tw-site.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

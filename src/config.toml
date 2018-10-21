@@ -1,4 +1,4 @@
-baseURL = "https://dev.whi.tw/ell"
+baseURL = "https://whi.tw/ell"
 languageCode = "en-gb"
 title = "Tom Whitwell"
 theme = "nix"

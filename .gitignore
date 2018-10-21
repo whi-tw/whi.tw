@@ -1,7 +1,5 @@
 # Hugo default output directory
-/dev
-/prod
-/public
+/build
 # OSX
 .DS_Store
 

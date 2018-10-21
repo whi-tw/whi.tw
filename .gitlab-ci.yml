@@ -19,7 +19,7 @@ variables:
 check-markdown:
   image: gouvinb/docker-markdownlint
   stage: test
-  script: markdownlint content/
+  script: markdownlint src/content/
 
 build:
   image: tnwhitwell/docker-hugo-builder:0.40

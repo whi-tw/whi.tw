@@ -3,8 +3,8 @@ install:
 - tar xzf hugo_0.51_Linux-64bit.tar.gz hugo && chmod +x hugo
 - gem install mdl
 script:
+- mdl src/content/
 - cd src
-- mdl content/
 - ../hugo -d ../build/ell
 - ../hugo --config amp.toml -d ../build/ell/amp
 - cp keybase.txt ../build/

@@ -12,7 +12,7 @@ script:
 - ../hugo -d ../build/ell
 - ../hugo --config amp.toml -d ../build/ell/amp
 - cp keybase.txt ../build/
-- echo "whi.tw" >> ../build/CNAME
+- echo "${DOMAIN}" > ../build/CNAME
 deploy:
   provider: pages
   skip-cleanup: true

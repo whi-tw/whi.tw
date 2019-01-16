@@ -1,9 +1,12 @@
 [build]
     publish = "build/"
-    command = "make all"
+    command = "make HEADER_ENV=netlify"
 [context.production]
 [context.production.environment]
     HUGO_VERSION = "0.53"
+    HUGO_ENV = "production"
+    HUGO_ENABLEGITINFO = "true"
+
 
 [[redirects]]
   from = "/"

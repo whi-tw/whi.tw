@@ -8,6 +8,4 @@ test:
 	node_modules/.bin/markdownlint src/content
 
 build: src/amp.toml src/config.toml src/keybase.txt
-	cd src && hugo -d ../build/ell
-	cd src && hugo --config amp.toml -d ../build/ell/amp
-	cd src && cp keybase.txt ../build/
+	make -wC src

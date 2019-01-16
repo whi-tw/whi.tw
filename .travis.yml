@@ -2,13 +2,10 @@ language: node_js
 node_js:
   - "node"
 install:
-- wget https://github.com/gohugoio/hugo/releases/download/v0.51/hugo_0.51_Linux-64bit.tar.gz
-- tar xzf hugo_0.51_Linux-64bit.tar.gz hugo && chmod +x hugo
-- npm install markdownlint-cli
+- make travis_preinstall
 script:
-- set -e
 - make test build HEADER_ENV=gh-pages
-- echo "${DOMAIN}" > ../build/CNAME
+- make gh_pages_cname
 deploy:
   provider: pages
   skip-cleanup: true

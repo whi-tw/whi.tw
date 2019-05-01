@@ -100,13 +100,13 @@ Finally, it is time to add the script which pulls all this configuration togethe
 
 This script is available to download [from GitHub](https://gist.githubusercontent.com/tnwhitwell/834b10c80a5985e62df8b6e2ba358683/raw/1a8a99c5adbba2db68e69d7bedd97918f6eb03a9/rclonesync.py). Download this on to the machine and place it somewhere your backup user can access. I have this located at `/opt/scripts/rcbackup.py` on my own setup. Ensure this file is executable (`chmod +x /opt/scripts/rcbackup.py`)
 
-# Running for the first time
+## Running for the first time
 
 If you have followed these instructions so far, you *should* be able to run the script and have the files you specified in `jobs.yml` uploaded to your remote.
 
 If there are any stack-traces, look them over - it may be a typo in jobs.yml, or a missing path. I have tried to catch all these, but YMMV.
 
-# Running on a schedule
+## Running on a schedule
 
 If the on-demand run completed successfully, you can now set the jobs to run with cron. This can be achieved in one of two ways:
 
@@ -117,7 +117,7 @@ If the on-demand run completed successfully, you can now set the jobs to run wit
 00 00 * * * backup-user /opt/scripts/rcbackup.py
 ```
 
-# Thoughts / improvements
+## Thoughts / improvements
 
 I know that a great deal of improvement can be done in this script, including (but not limited to) error handling and better configuration options.
 

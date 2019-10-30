@@ -25,12 +25,12 @@ highlightjs = true
 progressively = true
 share = false
 latestpostcount = 5
-github = "tnwhitwell"
+github = "whi-tw"
 email = "hi@whi.tw"
 linkedin = "tnwhitwell"
-twitter = "tnwhitwell"
+twitter = "whi_tw"
 posts_navigation = true
-githubRepo = "tnwhitwell/whi.tw/tree/master/src"
+githubRepo = "whi-tw/whi.tw/tree/master/src"
 
 
 [params.colors]

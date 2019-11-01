@@ -11,6 +11,7 @@ test: node_modules/.bin/markdownlint
 
 build: src/config.toml src/keybase.txt
 	make -wC src
+	cp _headers build/
 
 gh_pages_cname:
 	echo "${DOMAIN}" > build/CNAME

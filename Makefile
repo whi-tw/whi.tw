@@ -17,7 +17,7 @@ install_markdownlint:
 test:
 	node_modules/.bin/markdownlint src/content
 
-build: src/amp.toml src/config.toml src/keybase.txt
+build: src/config.toml src/keybase.txt
 	make -wC src
 
 gh_pages_cname:

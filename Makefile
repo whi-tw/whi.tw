@@ -1,4 +1,4 @@
-HUGO_VERSION:=0.53
+HUGO_VERSION:=0.59.1
 
 .PHONY: all travis_preinstall install_hugo install_markdownlint test
 all: install_markdownlint test build

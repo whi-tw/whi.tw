@@ -1,6 +1,6 @@
 [build]
     publish = "build/"
-    command = "make"
+    command = "make all"
 
 [build.environment]
     HUGO_VERSION = "0.59.1"

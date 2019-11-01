@@ -1,6 +1,5 @@
 [build]
     publish = "build/"
-    command = "make HEADER_ENV=netlify"
 
 [build.environment]
     HUGO_VERSION = "0.59.1"

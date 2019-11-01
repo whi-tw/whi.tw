@@ -1,4 +1,4 @@
-HUGO_VERSION:=0.53
+HUGO_VERSION:=0.59.1
 
 .PHONY: all travis_preinstall install_hugo install_markdownlint test
 all: install_markdownlint test build
@@ -17,7 +17,7 @@ install_markdownlint:
 test:
 	node_modules/.bin/markdownlint src/content
 
-build: src/amp.toml src/config.toml src/keybase.txt
+build: src/config.toml src/keybase.txt
 	make -wC src
 
 gh_pages_cname:

@@ -2,29 +2,28 @@ baseURL = "https://whi.tw/ell/"
 googleAnalytics = "UA-51691857-1"
 theme = "cocoa-eh"
 canonifyurls = true
+contentdir = "content"
 languageCode = "en-GB"
+layoutdir = "layouts"
+publishdir = "public"
 author = "Tom Whitwell"
 title = "Tom Whitwell"
-disqusshortname = "whi-tw"
 pluralizelisttitles = false
 
 disableKinds = ["taxonomy", "taxonomyTerm"]
-
-[permalinks]
-blog = "blog/:slug/"
 
 # Theme Parameters
 [params]
 dateform = "Jan 2, 2006"
 dateformfull = "Mon Jan 2 2006 15:04:05 MST"
 description = "My Blog"
-copyright = "Copyright © 2019 Tom Whitwell"
+copyright = "Copyright © 2017-{year} Tom Whitwell"
 copyrightUrl = "https://creativecommons.org/licenses/by-sa/4.0/"
 logofile = ""
 highlightjs = true
 progressively = true
 share = false
-latestpostcount = 5
+# latestpostcount = 5
 github = "whi-tw"
 email = "hi@whi.tw"
 linkedin = "tnwhitwell"
@@ -32,53 +31,7 @@ twitter = "whi_tw"
 posts_navigation = true
 githubRepo = "whi-tw/whi.tw/tree/master/src"
 
-
-[params.colors]
-identifier = "#527fc1f"
-identifier_dark = "#1a3152"
-trivial = "#6a7a8b"
-foreground = "#181d2a"
-background = "#f9f9f9"
-background_dark = "#282a36"
-code = "#87a5d2"
-type = "#97d28b"
-special = "#ffcb8d"
-value = "#96c2d7"
-statement = "#ff8e91"
-
-# GnuPGFingerprint = "A7A7AC2510B8C0DB82D9CC62CDEFD21A6438FA40"
-# #StackExchangeID = "your_stackexchange_id"
-# #StackOverflowID = "your_stackoverflow_id"
-# GithubID = "tnwhitwell"
-# #GitlabId = "your_gitlab"
-# #BitbucketID = "your_bitbucket_id"
-# TwitterID = "tnwhitwell"
-# #CodepenID = "your_codepen"
-# LinkedInID = "tnwhitwell"
-# #GoogleplusID = "your_googleplus"
-# #FacebookID = "your_facebook"
-# #InstagramID = "your_instagram"
-# #TelegramID = "your_telegram"
-# Name = "Tom Whitwell"
-# HeaderUsername = "tnwhitwell"
-# HeaderHostname = ""
-# Email = "hi@whitwell.xyz"
-# #Phone = "+1-201-555-0123"
-# #Mobile = "+1-201-555-0123"
-# About = "SRE, DevOps, WebOps, Tinkerer"
-# #ProfilePicture = "profile_picture_url"
-# #SlackURL = "https://join.slack.com/..."
-# GoogleAnalytics = "UA-51691857-1"
-# PayPalMeID = "tnwhitwell"
-#XingURL = "https://www.xing.com/profile/..."
-
-# # Menu Links
-# [menu]
-#     [[menu.header]]
-#         name = "Posts"
-#         weight = 1
-#         url = "/posts/"
-#     [[menu.header]]
-#         name = "About"
-#         weight = 0
-#         url = "/about/"
+[params.utteranc]
+enable = true
+repo = "whi-tw/whi.tw"
+issueTerm = "title"

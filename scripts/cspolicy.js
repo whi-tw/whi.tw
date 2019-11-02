@@ -28,13 +28,13 @@ fs.readFile("build/ell/index.html", function(err, buf) {
             csp_string += " "
         }
     });
-    csp_string += "; style-src https: "
-    hashes.styles.forEach(function(hash, index, arr){
-        csp_string += "'sha256-" + hash + "'";
-        if (index+1 != arr.length ){
-            csp_string += " "
-        }
-    });
+    csp_string += "; style-src 'unsafe-inline' https:"
+    // hashes.styles.forEach(function(hash, index, arr){
+        // csp_string += "'sha256-" + hash + "'";
+        // if (index+1 != arr.length ){
+            // csp_string += " "
+        // }
+    // });
     fs.readFile('_headers', function(err, buf) {
         if(err) throw err;
         data = buf.toString();

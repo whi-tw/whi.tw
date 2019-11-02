@@ -11,6 +11,7 @@ test: node_modules/.bin/markdownlint
 
 build: src/config.toml src/keybase.txt
 	make -wC src
+	yarn run generate-cs-policy
 	cp _headers build/
 
 gh_pages_cname:

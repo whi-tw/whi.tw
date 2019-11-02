@@ -2,4 +2,4 @@
   X-Frame-Options: DENY
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: no-referrer-when-downgrade
-  Content-Security-Policy: default-src https:
+  Content-Security-Policy:

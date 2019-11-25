@@ -5,6 +5,7 @@
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.3",
+    "glob": "^7.1.6",
     "markdownlint-cli": "^0.19.0"
   },
   "license": "CC-BY-SA-4.0"

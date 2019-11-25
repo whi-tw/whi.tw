@@ -1,5 +1,5 @@
 all: build
 
 build:
-	hugo -d ../build/ell
-	cp keybase.txt ../build/
+	hugo -d "${DEST_DIR}/ell"
+	cp keybase.txt ${DEST_DIR}

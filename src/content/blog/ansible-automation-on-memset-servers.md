@@ -4,9 +4,7 @@ date: 2017-01-26T12:00:00+00:00
 draft: false
 tags: ["ansible", "memset", "orchestration"]
 ---
-<!-- markdownlint-disable MD002 MD022 MD026-->
 ## What is Ansible?
-<!-- markdownlint-enable MD002 MD022 MD026-->
 
 > Ansible is an open source automation tool, which facilitates configuration management, application deployment and task automation.
 

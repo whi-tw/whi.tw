@@ -11,9 +11,7 @@ This post relates specifically to using Memset's [Cloud Storage product](https:/
 
 This guide does not deal with the creation of the backups themselves, it assumes that backups are created and placed somewhere on the local machine (or no backups are taken, and this method is used to provide simple directory replication).
 
-<!-- markdownlint-disable MD002 MD022-->
 ## Installation
-<!-- markdownlint-enable MD002 MD022-->
 
 rclone is not shipped as a traditional package, and must be installed from the archives provided [on the website](https://rclone.org/downloads/). Once downloaded, place the rclone binary somewhere on the machine where it is accessible to the user running the backup. On *nix systems, I have the binary installed at: `/usr/bin/rclone`.
 
@@ -87,12 +85,10 @@ tasks:
 
 ### Breakdown of jobs.yml
 
-<!-- markdownlint-disable MD009-->
 **name**: A unique identifier for each job. These must not contain spaces (there is no error checking for this as yet, so be careful!)  
 **local**: The absolute path to the local directory you are replicating.  
 **remote**: A combination of the remote you are using, and the path on that remote (without a preceding '/')  
 **operation**: The rclone operation you would like to use, chosen from [the list on the official rclone site](https://rclone.org/commands/). For replication purposes, sync will suffice.
-<!-- markdownlint-enable MD009-->
 
 ## The sync script
 

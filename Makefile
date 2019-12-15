@@ -1,20 +1,18 @@
 HUGO_VERSION := 0.59.1
-export DEST_DIR := $(shell pwd)/build
+export DEST_DIR := build/
 
 .PHONY: all test clean build
 all: test build
 
-node_dependencies = node_modules/.bin/markdownlint node_modules/cheerio/lib/cheerio.js
-$(node_dependencies): package.json
-	yarn install --dev
+ruby_deps: Gemfile Gemfile.lock
+	bundle install
 
-test: node_modules/.bin/markdownlint
-	@yarn run lint-content
+test: ruby_deps
+	bundle exec mdl src/content
 
-build: src/config.toml src/keybase.txt node_modules/cheerio/lib/cheerio.js
+build: ruby_deps src/config.toml src/keybase.txt
 	make -wC src
-	yarn run generate-cs-policy ${DEST_DIR}
+	bundle exec ruby scripts/cspolicy.rb ${DEST_DIR}
 
 clean:
 	@rm -rf ${DEST_DIR}
-	@rm -rf node_modules

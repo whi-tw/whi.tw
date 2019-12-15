@@ -4,9 +4,7 @@ date: 2019-01-19T12:05:00+00:00
 draft: false
 tags: ["docker", "ruby", "dns", "dnsmasq", "orchestration"]
 ---
-<!-- markdownlint-disable MD002 MD022 MD026-->
 ## Introduction
-<!-- markdownlint-enable MD002 MD022 MD026-->
 
 Recently, I've introduced [Pi-hole](https://pi-hole.net/) into my house, both for its ad-blocking capabilities, and to act as a slightly more powerful DNS server than my current home router, a [FRITZ!Box 3490](https://en.avm.de/products/fritzbox/fritzbox-3490/). Although that router looks jazzy as anything, there is no facility to add custom DNS records.
 

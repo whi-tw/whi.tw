@@ -5,9 +5,7 @@ draft: false
 showthedate: false
 ---
 
-<!-- markdownlint-disable MD002 MD022 -->
 ## Certifications
-<!-- markdownlint-enable MD002 MD022 -->
 
 ### LPI
 

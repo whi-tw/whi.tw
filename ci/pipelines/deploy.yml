@@ -1,0 +1,198 @@
+meta:
+  containers:
+    terraform: &terraform-image-resource
+      type: docker-image
+      source: &terraform-image-resource-source
+        repository: hashicorp/terraform
+        tag: 0.12.16
+    nodejs: &nodejs-image-resource
+      type: docker-image
+      source: &terraform-image-resource-source
+        repository: node
+        tag: 13.1-alpine
+  repo: &repo-source
+    uri: git@github.com:whi-tw/whi.tw.git
+    branch: master
+    private_key: |
+      ((concourse-ssh-key.id_rsa))
+  repo-with-gpg: &repo-source-gpg
+    <<: *repo-source
+    commit_verification_key_ids:
+      - ((valid-gpg-ids.tom_whitwell))
+    gpg_keyserver: hkps://keyserver.ubuntu.com
+  repo-dev-gpg: &repo-source-develop
+    <<:  *repo-source
+    branch: develop
+
+groups:
+  - name: Deploy
+    jobs:
+      - Trigger
+      - Test
+      - Build
+      - Upload
+  # - name: Misc
+  #   jobs:
+  #     - weekly-timer
+  #     - build-ruby-container
+jobs:
+  - name: Trigger
+    plan:
+      - in_parallel:
+        - get: source
+          trigger: true
+        - put: pipeline-trigger
+          params: {bump: patch}
+
+  - name: Test
+    plan:
+      - in_parallel:
+        - get: source
+          resource: whi.tw
+          passed: [Trigger]
+          trigger: true
+        - get: pipeline-trigger
+          trigger: true
+      - task: Markdownlint Content
+        config:
+          platform: linux
+          image_resource: *nodejs-image-resource
+          inputs:
+            - name: source
+          run:
+            path: sh
+            args:
+              - -e
+              - -c
+              - |
+                cd source
+                yarn run lint-content
+  - name: Build
+    plan:
+      - in_parallel:
+        - get: source
+          resource: whi.tw
+          passed: [Test]
+          trigger: true
+        - get: pipeline-trigger
+          passed: [Test]
+          trigger: true
+      - task: Build Site
+        config:
+          platform: linux
+          image_resource: *hugo-image-resource
+          inputs:
+            - name: source
+          outputs:
+            - name: built-site
+          run:
+            path: sh
+            args:
+              - -e
+              - -c
+              - |
+                cd source
+                make build DEST_DIR="$(realpath ../built-site)"
+  # - name: Upload
+  #   serial: true
+  #   plan:
+  #     - in_parallel:
+  #       - get: source
+  #         passed: [Test]
+  #         trigger: true
+  #       - get: pipeline-trigger
+  #         passed: [Test]
+  #         trigger: true
+  #     - task: Upload
+  #       config:
+  #         platform: linux
+  #         image_resource: *terraform-image-resource
+  #         inputs:
+  #           - name: tf-plan
+  #           - name: .terraform
+  #           - name: .docker-auth
+  #         params:
+  #           CLOUDFLARE_EMAIL: ((cloudflare.email))
+  #           CLOUDFLARE_API_KEY: ((cloudflare.api_key))
+  #           AWS_ACCESS_KEY_ID: ((aws-s3.access_key_id))
+  #           AWS_SECRET_ACCESS_KEY: ((aws-s3.secret_access_key))
+  #           VAULT_ADDR: https://vault.whitwell.dev
+  #           VAULT_TOKEN: ((terraform-vault-token))
+  #         run:
+  #           path: sh
+  #           args:
+  #             - -exc
+  #             - |
+  #               terraform apply --auto-approve ./tf-plan/plan.tfplan
+
+  # - name: build-ruby-container
+  #   plan:
+  #   - in_parallel:
+  #     - get: ruby-dockerfile
+  #       trigger: true
+  #     - get: ruby-base
+  #       trigger: true
+  #       params:
+  #         save: true
+  #   - put: ruby-docker_registry2-image
+  #     params:
+  #       build: ruby-dockerfile
+  #       build_args:
+  #         RUBY_VERSION: ((ruby-image-base))
+  #       dockerfile: ruby-dockerfile/spec/Dockerfile
+  #       load_base: ruby-base
+
+  # - name: weekly-timer
+  #   plan:
+  #     - get: every-saturday-4am
+  #       trigger: true
+  #     - put: pipeline-trigger
+  #       params: {bump: patch}
+
+resources:
+  - name: whi.tw
+    icon: git
+    type: git
+    source:
+      <<: *repo-source-gpg
+
+  # - name: ruby-dockerfile
+  #   icon: git
+  #   type: git
+  #   source:
+  #     <<: *repo-source-gpg
+  #     paths:
+  #       - spec/Dockerfile
+
+  - name: pipeline-trigger
+    icon: check
+    type: semver
+    source: &version-repo-source
+      driver: git
+      <<: *repo-source
+      branch: pipeline-trigger
+      file: pipeline-trigger
+      git_user: "Concourse <concourse@whitwell.dev>"
+      initial_version: 0.0.0
+
+  # - name: every-saturday-4am
+  #   type: time
+  #   icon: alarm
+  #   source:
+  #     start: "04:00"
+  #     stop: "05:00"
+  #     location: Europe/London
+  #     days: [Saturday]
+
+  # - name: ruby-base
+  #   icon: docker
+  #   <<: *ruby-base-image
+
+  # - name: ruby-docker_registry2-image
+  #   icon: docker
+  #   type: docker-image
+  #   source:
+  #     <<: *ruby-image-resource-source
+  #     email: ((docker-hub.email))
+  #     username: ((docker-hub.username))
+  #     password: ((docker-hub.password))

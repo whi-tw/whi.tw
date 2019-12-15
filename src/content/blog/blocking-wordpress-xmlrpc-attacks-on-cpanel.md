@@ -26,9 +26,7 @@ However, I was looking for a way to permanently block attackers at firewall leve
 
 I discovered recently that the popular software firewall [ConfigServer Security & Firewall (csf)](https://configserver.com/cp/csf.html) for cPanel supports wildcards in its custom logs, which has made this firewall-level blocking possible.
 
-<!-- markdownlint-disable MD002 MD022-->
 ### Useful Links
-<!-- markdownlint-enable MD002 MD022-->
 
 * [Project Homepage](https://configserver.com/cp/csf.html)
 * [Official Install Guide](https://download.configserver.com/csf/install.txt)
@@ -93,9 +91,7 @@ sub custom_line {
 
 At this point, you can restart csf and lfd with: `csf -ra`.
 
-<!-- markdownlint-disable MD001 MD022-->
 ### Testing the rule
-<!-- markdownlint-enable MD001 MD022-->
 
 > **HERE BE DRAGONS**
 >

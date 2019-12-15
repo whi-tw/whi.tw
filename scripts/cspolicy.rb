@@ -7,7 +7,8 @@ require 'digest'
 DEFAULT_PAGE_CSP = [
   'default-src \'none\'',
   'font-src \'self\' https://fonts.gstatic.com',
-  'img-src https:'
+  'img-src https:',
+  'frame-src https://utteranc.es'
 ].freeze
 
 def get_scripts(path)

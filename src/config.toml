@@ -37,4 +37,4 @@ issueTerm = "title"
 
 [markup]
 [markup.highlight]
-codeFences = true
+codeFences = false

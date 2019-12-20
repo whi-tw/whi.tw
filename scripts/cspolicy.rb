@@ -13,7 +13,7 @@ DEFAULT_PAGE_CSP = [
 ].freeze
 
 def get_scripts(path)
-  sources = []
+  sources = ['https://static.cloudflareinsights.com']
   shas = []
   html = File.open(path, 'r') { |f| Nokogiri::HTML(f) }
   html.xpath('//script').each do |script|
@@ -77,6 +77,6 @@ HTML_FILES.each do |path|
   page_policies.concat file_csp(path)
 end
 
-File.open('build/_headers', 'w') do |outfile|
+File.open("#{DESTINATION}/_headers", 'w') do |outfile|
   outfile.puts(gen_csp_headers(page_policies))
 end

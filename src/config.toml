@@ -1,4 +1,3 @@
-baseURL = "https://whi.tw/ell/"
 googleAnalytics = "UA-51691857-1"
 theme = "cocoa-eh"
 canonifyurls = true
@@ -35,3 +34,7 @@ githubRepo = "whi-tw/whi.tw/tree/master/src"
 enable = true
 repo = "whi-tw/whi.tw"
 issueTerm = "title"
+
+[markup]
+[markup.highlight]
+codeFences = true

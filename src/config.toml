@@ -1,4 +1,3 @@
-baseURL = "https://whi.tw/ell/"
 googleAnalytics = "UA-51691857-1"
 theme = "cocoa-eh"
 canonifyurls = true

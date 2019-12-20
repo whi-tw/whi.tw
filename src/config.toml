@@ -34,3 +34,7 @@ githubRepo = "whi-tw/whi.tw/tree/master/src"
 enable = true
 repo = "whi-tw/whi.tw"
 issueTerm = "title"
+
+[markup]
+[markup.highlight]
+codeFences = true

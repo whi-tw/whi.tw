@@ -19,3 +19,6 @@
 [[redirects]]
   from = "/"
   to = "/ell"
+[[redirects]]
+  from = "/ell/posts/*"
+  to = "/ell/blog/:splat"

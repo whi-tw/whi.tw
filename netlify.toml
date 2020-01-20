@@ -1,24 +1,25 @@
 [build]
-    publish = "build/"
-    command = "make test build HUGO_BASEURL=${URL}/ell/"
+publish = "build/"
+command = "make test build HUGO_BASEURL=${URL}/ell/"
 
 [build.environment]
-    HUGO_VERSION = "0.61.0"
+HUGO_VERSION = "0.61.0"
 
 [context.production.environment]
-    HUGO_ENV = "production"
-    HUGO_ENABLEGITINFO = "false"
+HUGO_ENV = "production"
+HUGO_ENABLEGITINFO = "false"
 
 [context.deploy-preview]
-    command = "make test build-preview HUGO_BASEURL=${DEPLOY_PRIME_URL}/ell/"
+command = "make test build-preview HUGO_BASEURL=${DEPLOY_PRIME_URL}/ell/"
 
 [context.deploy-preview.environment]
-    HUGO_ENV = "development"
-    HUGO_ENABLEGITINFO = "true"
+HUGO_ENV = "development"
+HUGO_ENABLEGITINFO = "true"
 
 [[redirects]]
-  from = "/"
-  to = "/ell"
+from = "/"
+to = "/ell"
+
 [[redirects]]
-  from = "/ell/posts/*"
-  to = "/ell/blog/:splat"
+from = "/ell/posts/*"
+to = "/ell/blog/:splat"

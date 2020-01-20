@@ -8,7 +8,6 @@ publishdir = "../build"
 author = "Tom Whitwell"
 title = "Tom Whitwell"
 pluralizelisttitles = false
-
 disableKinds = ["taxonomy", "taxonomyTerm"]
 
 # Theme Parameters
@@ -36,5 +35,6 @@ repo = "whi-tw/whi.tw"
 issueTerm = "title"
 
 [markup]
+
 [markup.highlight]
 codeFences = false

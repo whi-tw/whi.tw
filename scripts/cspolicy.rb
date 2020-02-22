@@ -1,39 +1,39 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'nokogiri'
-require 'digest'
+require "nokogiri"
+require "digest"
 
 DEFAULT_PAGE_CSP = [
   'default-src \'none\'',
   'font-src \'self\' https://fonts.gstatic.com',
-  'img-src https:',
-  'frame-src https://utteranc.es',
-  'report-uri https://hvh5hqqqtfbautdlldqjxzk199q8o2.report-uri.com/r/d/csp/enforce'
+  "img-src https:",
+  "frame-src https://utteranc.es",
+  "report-uri https://hvh5hqqqtfbautdlldqjxzk199q8o2.report-uri.com/r/d/csp/enforce",
 ].freeze
 
 def get_scripts(path)
-  sources = ['https://static.cloudflareinsights.com']
+  sources = ["https://static.cloudflareinsights.com"]
   shas = []
-  html = File.open(path, 'r') { |f| Nokogiri::HTML(f) }
-  html.xpath('//script').each do |script|
-    unless script['src'].nil?
-      uri = URI.parse(script['src'])
+  html = File.open(path, "r") { |f| Nokogiri::HTML(f) }
+  html.xpath("//script").each do |script|
+    unless script["src"].nil?
+      uri = URI.parse(script["src"])
       sources.push("#{uri.scheme}://#{uri.host}")
     end
     script.text.empty? || shas.push("sha256-#{Digest::SHA256.base64digest(script.text)}")
   end
-  "#{sources.uniq.join(' ')} #{shas.uniq.map { |s| "'#{s}'"}.join(' ')}".rstrip
+  "#{sources.uniq.join(" ")} #{shas.uniq.map { |s| "'#{s}'" }.join(" ")}".rstrip
 end
 
 def get_styles(path)
-  html = File.open(path, 'r') { |f| Nokogiri::HTML(f) }
-  sources = html.xpath('//link[@rel="stylesheet"]/@href').to_a.map { |s| "#{URI.parse(s).scheme}://#{URI.parse(s).host}"}
+  html = File.open(path, "r") { |f| Nokogiri::HTML(f) }
+  sources = html.xpath('//link[@rel="stylesheet"]/@href').to_a.map { |s| "#{URI.parse(s).scheme}://#{URI.parse(s).host}" }
   shas = []
-  html.xpath('//style').each do |style|
+  html.xpath("//style").each do |style|
     style.text.empty? || shas.push("sha256-#{Digest::SHA256.base64digest(style.text)}")
   end
-  "'unsafe-inline' #{sources.uniq.join(' ')}".rstrip #  #{shas.uniq.map{|s| "'#{s}'"}.join(' ')}".rstrip
+  "'unsafe-inline' #{sources.uniq.join(" ")}".rstrip #  #{shas.uniq.map{|s| "'#{s}'"}.join(' ')}".rstrip
 end
 
 def file_csp(file)
@@ -44,13 +44,13 @@ def file_csp(file)
   csp.push("style-src #{get_styles(file)}")
   [
     {
-      url: "/#{file.split('/').drop(2).join('/')}",
-      csp: csp.join('; ')
+      url: "/#{file.split("/").drop(2).join("/")}",
+      csp: csp.join("; "),
     },
     {
-       url: "/#{file.split('/').drop(2).join('/').split('/index.html')[0]}",
-       csp: csp.join('; ')
-    }
+      url: "/#{file.split("/").drop(2).join("/").split("/index.html")[0]}",
+      csp: csp.join("; "),
+    },
   ]
 end
 
@@ -77,6 +77,6 @@ HTML_FILES.each do |path|
   page_policies.concat file_csp(path)
 end
 
-File.open("#{DESTINATION}/_headers", 'w') do |outfile|
+File.open("#{DESTINATION}/_headers", "w") do |outfile|
   outfile.puts(gen_csp_headers(page_policies))
 end

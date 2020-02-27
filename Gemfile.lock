@@ -13,7 +13,7 @@ GEM
     mixlib-cli (2.1.1)
     mixlib-config (3.0.5)
       tomlrb
-    nokogiri (1.10.7)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     tomlrb (1.2.9)
 
@@ -22,7 +22,7 @@ PLATFORMS
 
 DEPENDENCIES
   mdl (~> 0.8.0)
-  nokogiri (~> 1.10.7)
+  nokogiri (~> 1.10.8)
 
 BUNDLED WITH
    2.0.2

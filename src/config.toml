@@ -8,7 +8,6 @@ publishdir = "../build"
 author = "Tom Whitwell"
 title = "Tom Whitwell"
 pluralizelisttitles = false
-disableKinds = ["taxonomy", "taxonomyTerm"]
 paginate = 5
 
 # Theme Parameters
@@ -26,9 +25,7 @@ centerTheme = false
 languageName = "English"
 title = "Tom Whitwell"
 subtitle = "A simple, retro theme for Hugo"
-owner = ""
-keywords = ""
-copyright = ""
+owner = "Tom Whitwell"
 menuMore = "Show more"
 readMore = "Read more"
 readOtherPosts = "Read other posts"

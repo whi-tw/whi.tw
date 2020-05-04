@@ -13,7 +13,7 @@ DEFAULT_PAGE_CSP = [
 ].freeze
 
 def get_scripts(path)
-  sources = ["https://static.cloudflareinsights.com"]
+  sources = ["'self'"]
   shas = []
   html = File.open(path, "r") { |f| Nokogiri::HTML(f) }
   html.xpath("//script").each do |script|

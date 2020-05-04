@@ -1,5 +1,5 @@
 googleAnalytics = "UA-51691857-1"
-theme = "cocoa-eh"
+theme = "terminal"
 canonifyurls = true
 contentdir = "content"
 languageCode = "en-GB"
@@ -9,32 +9,37 @@ author = "Tom Whitwell"
 title = "Tom Whitwell"
 pluralizelisttitles = false
 disableKinds = ["taxonomy", "taxonomyTerm"]
+paginate = 5
 
 # Theme Parameters
 [params]
-dateform = "Jan 2, 2006"
-dateformfull = "Mon Jan 2 2006 15:04:05 MST"
-description = "My Blog"
-copyright = "Copyright © 2017-{year} Tom Whitwell"
-copyrightUrl = "https://creativecommons.org/licenses/by-sa/4.0/"
-logofile = ""
-highlightjs = true
-progressively = true
-share = false
-# latestpostcount = 5
-github = "whi-tw"
-email = "hi@whi.tw"
-linkedin = "tnwhitwell"
-twitter = "whi_tw"
-posts_navigation = true
-githubRepo = "whi-tw/whi.tw/tree/master/src"
+contentTypeName = "blog"
+themeColor = "blue"
+showMenuItems = 2
+showLanguageSelector = false
+fullWidthTheme = false
+centerTheme = false
 
-[params.utteranc]
-enable = true
-repo = "whi-tw/whi.tw"
-issueTerm = "title"
+[languages]
 
-[markup]
+[languages.en]
+languageName = "English"
+title = "Tom Whitwell"
+subtitle = "A simple, retro theme for Hugo"
+owner = ""
+keywords = ""
+copyright = ""
+menuMore = "Show more"
+readMore = "Read more"
+readOtherPosts = "Read other posts"
 
-[markup.highlight]
-codeFences = false
+[languages.en.params.logo]
+logoText = "Tom Whitwell"
+logoHomeLink = "/"
+
+[languages.en.menu]
+
+[[languages.en.menu.main]]
+identifier = "certs"
+name = "Certifications"
+url = "/certs"

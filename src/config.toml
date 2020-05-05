@@ -1,5 +1,5 @@
 theme = "terminal"
-canonifyurls = true
+canonifyURLs = true
 contentdir = "content"
 languageCode = "en-GB"
 layoutdir = "layouts"

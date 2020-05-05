@@ -23,7 +23,7 @@ centerTheme = false
 [languages.en]
 languageName = "English"
 title = "Tom Whitwell"
-subtitle = "A simple, retro theme for Hugo"
+subtitle = ""
 owner = "Tom Whitwell"
 menuMore = "Show more"
 readMore = "Read more"

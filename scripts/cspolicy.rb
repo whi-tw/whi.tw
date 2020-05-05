@@ -5,7 +5,7 @@ require "nokogiri"
 require "digest"
 
 DEFAULT_PAGE_CSP = [
-  'default-src \'none\'',
+  'default-src \'self\'',
   'font-src \'self\' https://fonts.gstatic.com',
   "img-src https:",
   "frame-src https://utteranc.es",
@@ -62,10 +62,10 @@ def gen_csp_headers(page_policies)
   Report-To: {"group":"default","max_age":31536000,"endpoints":[{"url":"https://hvh5hqqqtfbautdlldqjxzk199q8o2.report-uri.com/a/d/g"}],"include_subdomains":true}
   NEL: {"report_to":"default","max_age":31536000,"include_subdomains":true}
 )]
-  # page_policies.each do |policy|
-  #   chunks.push(%(#{policy[:url]}
-  # Content-Security-Policy: #{policy[:csp]}))
-  # end
+  page_policies.each do |policy|
+    chunks.push(%(#{policy[:url]}
+  Content-Security-Policy-Report-Only: #{policy[:csp]}))
+  end
   chunks
 end
 

@@ -4,16 +4,21 @@
 require "nokogiri"
 require "digest"
 
-DEFAULT_PAGE_CSP = [
-  'default-src \'self\'',
-  'font-src \'self\' https://fonts.gstatic.com',
-  "img-src https:",
-  "frame-src https://utteranc.es",
-  "report-uri https://hvh5hqqqtfbautdlldqjxzk199q8o2.report-uri.com/r/d/csp/enforce",
-].freeze
+REPORT_URI_SUBDOMAIN = "whitw.report-uri.com".freeze
+REPORT_URI = "https://#{REPORT_URI_SUBDOMAIN}/r/d/csp/reportOnly".freeze # Turn on wizard mode
+
+BASE_CSP = {
+  "default-src" => ["'self'"],
+  "font-src" => ["'self'", "https://fonts.gstatic.com"],
+  "img-src" => ["'self'"],
+  "frame-src" => ["https://utteranc.es"],
+  "report-uri" => [REPORT_URI],
+  "script-src" => [],
+  "style-src" => [],
+}.freeze
 
 def get_scripts(path)
-  sources = ["'self'"]
+  sources = []
   shas = []
   html = File.open(path, "r") { |f| Nokogiri::HTML(f) }
   html.xpath("//script").each do |script|
@@ -23,7 +28,8 @@ def get_scripts(path)
     end
     script.text.empty? || shas.push("sha256-#{Digest::SHA256.base64digest(script.text)}")
   end
-  "#{sources.uniq.join(" ")} #{shas.uniq.map { |s| "'#{s}'" }.join(" ")}".rstrip
+  sources.uniq + shas.uniq
+  # "#{sources.uniq.join(" ")} #{shas.uniq.map { |s| "'#{s}'" }.join(" ")}".rstrip
 end
 
 def get_styles(path)
@@ -33,50 +39,60 @@ def get_styles(path)
   html.xpath("//style").each do |style|
     style.text.empty? || shas.push("sha256-#{Digest::SHA256.base64digest(style.text)}")
   end
-  "'unsafe-inline' #{sources.uniq.join(" ")}".rstrip #  #{shas.uniq.map{|s| "'#{s}'"}.join(' ')}".rstrip
+  sources.uniq
+  # "'unsafe-inline' #{sources.uniq.join(" ")}".rstrip #  #{shas.uniq.map{|s| "'#{s}'"}.join(' ')}".rstrip
 end
 
 def file_csp(file)
-  csp = DEFAULT_PAGE_CSP.dup
+  # csp = DEFAULT_PAGE_CSP.dup
   scripts = get_scripts(file)
-  scripts.empty? || csp.push("script-src #{scripts}")
-  #csp.push(get_scripts(file))
-  csp.push("style-src #{get_styles(file)}")
-  [
-    {
-      url: "/#{file.split("/").drop(2).join("/")}",
-      csp: csp.join("; "),
-    },
-    {
-      url: "/#{file.split("/").drop(2).join("/").split("/index.html")[0]}",
-      csp: csp.join("; "),
-    },
-  ]
+  styles = get_styles(file)
+  {
+    "script-src" => scripts,
+    "style-src" => styles,
+  }
+  # csp.push("style-src #{get_styles(file)}")
+  # [
+  #   {
+  #     url: "/#{file.split("/").drop(2).join("/")}",
+  #     csp: csp.join("; "),
+  #   },
+  #   {
+  #     url: "/#{file.split("/").drop(2).join("/").split("/index.html")[0]}",
+  #     csp: csp.join("; "),
+  #   },
+  # ]
 end
 
-def gen_csp_headers(page_policies)
-  chunks = [%(/*
-  X-Frame-Options: DENY
-  X-XSS-Protection: 1; mode=block
-  Referrer-Policy: no-referrer-when-downgrade
-  Report-To: {"group":"default","max_age":31536000,"endpoints":[{"url":"https://hvh5hqqqtfbautdlldqjxzk199q8o2.report-uri.com/a/d/g"}],"include_subdomains":true}
-  NEL: {"report_to":"default","max_age":31536000,"include_subdomains":true}
-)]
-  page_policies.each do |policy|
-    chunks.push(%(#{policy[:url]}
-  Content-Security-Policy-Report-Only: #{policy[:csp]}))
+def gen_csp_headers(policies)
+  lines = ["/*",
+           "  X-Frame-Options: DENY",
+           "  X-XSS-Protection: 1; mode=block",
+           "  Referrer-Policy: no-referrer-when-downgrade",
+           "  Report-To: {\"group\":\"default\",\"max_age\":31536000,\"endpoints\":[{\"url\":\"https://#{REPORT_URI_SUBDOMAIN}/a/d/g\"}],\"include_subdomains\":true}",
+           '  NEL: {"report_to":"default","max_age":31536000,"include_subdomains":true}']
+  policy = []
+  policies.each do |key, p|
+    policy.push("#{key} #{p.join(" ")}")
+    #   chunks.push(%(#{policy[:url]}
+    # Content-Security-Policy-Report-Only: #{policy[:csp]}))
   end
-  chunks
+  lines.push("  Content-Security-Policy-Report-Only: #{policy.join("; ")}")
+  lines
 end
 
 DESTINATION = ARGV[0]
 HTML_FILES = Dir["#{DESTINATION}/**/*.html"]
 
-page_policies = []
+policies = BASE_CSP.dup
 HTML_FILES.each do |path|
-  page_policies.concat file_csp(path)
+  sources = file_csp(path)
+  sources.each do |key, source|
+    policies[key].concat source
+    policies[key] = policies[key].uniq
+  end
 end
 
 File.open("#{DESTINATION}/_headers", "w") do |outfile|
-  outfile.puts(gen_csp_headers(page_policies))
+  outfile.puts(gen_csp_headers(policies))
 end

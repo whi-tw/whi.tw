@@ -7,4 +7,4 @@ build-preview:
 	hugo -D -d "../${DEST_DIR}/ell"
 	cp keybase.txt ../${DEST_DIR}
 serve:
-	hugo serve -D -F
+	hugo serve -D -F --disableFastRender

@@ -1,7 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    kramdown (2.1.0)
+    kramdown (2.3.0)
+      rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     mdl (0.8.0)
@@ -15,6 +16,7 @@ GEM
       tomlrb
     nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
+    rexml (3.2.4)
     tomlrb (1.2.9)
 
 PLATFORMS

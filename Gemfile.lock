@@ -18,7 +18,7 @@ GEM
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     racc (1.5.2)
-    rexml (3.2.4)
+    rexml (3.2.5)
     tomlrb (1.2.9)
 
 PLATFORMS

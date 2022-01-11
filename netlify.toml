@@ -1,6 +1,6 @@
 [build]
 publish = "build/"
-command = "make test build HUGO_BASEURL=${URL}/ell/"
+command = "make test build BASEURL=${URL} HUGO_BASEURL=${URL}/ell/"
 
 [build.environment]
 HUGO_VERSION = "0.88.1"
@@ -10,7 +10,7 @@ HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "false"
 
 [context.deploy-preview]
-command = "make test build-preview HUGO_BASEURL=${DEPLOY_PRIME_URL}/ell/"
+command = "make test build-preview BASEURL=${DEPLOY_PRIME_URL} HUGO_BASEURL=${DEPLOY_PRIME_URL}/ell/"
 
 [context.deploy-preview.environment]
 HUGO_ENV = "development"

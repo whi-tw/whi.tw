@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Run with "curl <%= baseurl %>/zshrc | bash"
+ZSHRC_REPO="https://github.com/whi-tw/.zshrc"
+ZSHRC_DIRECTORY="${HOME}/.zshrc.d"
+git clone ${ZSHRC_REPO} ${ZSHRC_DIRECTORY}
+ln -s ${ZSHRC_DIRECTORY}/.zshrc ${HOME}/.zshrc

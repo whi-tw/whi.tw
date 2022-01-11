@@ -1,8 +1,12 @@
-export DEST_DIR := build/
+export DEST_DIR := $(abspath ./build/)
+export BASEURL ?= http://127.0.0.1
 export HUGO_BASEURL ?= http://127.0.0.1/ell/
 
 .PHONY: all test clean build
 all: test build
+
+$(DEST_DIR):
+	mkdir -p $(DEST_DIR)
 
 ruby_deps: Gemfile Gemfile.lock
 	bundle install
@@ -10,16 +14,16 @@ ruby_deps: Gemfile Gemfile.lock
 test: ruby_deps
 	bundle exec mdl src/content
 
-build: ruby_deps src/config.toml src/keybase.txt
+build: $(DEST_DIR) ruby_deps src/config.toml src/keybase.txt src/zshrc.erb
 	make -wC src build
-	bundle exec ruby scripts/cspolicy.rb ${DEST_DIR}
+	bundle exec ruby scripts/cspolicy.rb $(DEST_DIR)
 
-build-preview: ruby_deps src/config.toml src/keybase.txt
+build-preview: ruby_deps src/config.toml src/keybase.txt src/zshrc
 	make -wC src build-preview
-	bundle exec ruby scripts/cspolicy.rb ${DEST_DIR}
+	bundle exec ruby scripts/cspolicy.rb $(DEST_DIR)
 
 serve:
 	make -wC src serve
 
 clean:
-	@rm -rf ${DEST_DIR}
+	@rm -rf $(DEST_DIR)

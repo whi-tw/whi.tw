@@ -1,6 +1,6 @@
 [build]
 publish = "build/"
-command = "make test build HUGO_BASEURL=${DEPLOY_PRIME_URL}/ell/"
+command = "make test build HUGO_BASEURL=${URL}/ell/"
 
 [build.environment]
 HUGO_VERSION = "0.88.1"

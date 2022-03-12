@@ -7,7 +7,7 @@ TEMPLATES_TARGETS := $(TEMPLATES:%.erb=$(DEST_DIR)/%)
 
 
 $(ROOT_FILES_TARGETS): $(ROOT_FILES)
-	cp $(@:$(DEST_DIR)/%=%) $@
+	cp $< $@
 
 $(TEMPLATES_TARGETS): $(TEMPLATES)
 	echo $(ROOT_FILES_TARGETS)
@@ -17,7 +17,7 @@ build: $(ROOT_FILES_TARGETS) $(TEMPLATES_TARGETS)
 	hugo -d "$(DEST_DIR)/ell"
 	
 build-preview: $(ROOT_FILES_TARGETS) $(TEMPLATES_TARGETS)
-	hugo -D -d "../$(DEST_DIR)/ell"
+	hugo -D -d "$(DEST_DIR)/ell"
 
 serve:
 	hugo serve -D -F --disableFastRender

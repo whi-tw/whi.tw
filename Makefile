@@ -18,7 +18,7 @@ build: $(DEST_DIR) ruby_deps src/config.toml src/keybase.txt src/zshrc.erb
 	make -wC src build
 	bundle exec ruby scripts/cspolicy.rb $(DEST_DIR)
 
-build-preview: ruby_deps src/config.toml src/keybase.txt src/zshrc
+build-preview: $(DEST_DIR) ruby_deps src/config.toml src/keybase.txt src/zshrc.erb
 	make -wC src build-preview
 	bundle exec ruby scripts/cspolicy.rb $(DEST_DIR)
 

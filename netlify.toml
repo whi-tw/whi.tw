@@ -4,6 +4,7 @@ command = "make test build BASEURL=${URL} HUGO_BASEURL=${URL}/ell/"
 
 [build.environment]
 HUGO_VERSION = "0.111.3"
+GO_VERSION = "1.18"
 
 [context.production.environment]
 HUGO_ENV = "production"

@@ -5,12 +5,12 @@ draft: false
 showthedate: false
 ---
 
-## LPI
+<!-- ## LPI
 
 **ID**: LPI000339832
 
 **LPIC-1**: Valid 01/03/2018 - 01/03/2023 [[Verify]](https://lpi.org/v/LPI000339832/fu6k5s4ztn)
-[[Certificate]](/pdfs/Tom-Whitwell-LPIC-1.pdf)
+[[Certificate]](/pdfs/Tom-Whitwell-LPIC-1.pdf) -->
 
 ## Professional Scrum Foundation
 

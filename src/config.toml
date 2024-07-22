@@ -1,45 +1,66 @@
-# theme = "terminal"
-canonifyURLs = true
-contentdir = "content"
+canonifyURLs = false
 languageCode = "en-GB"
-layoutdir = "layouts"
-publishdir = "../build"
 author = "Tom Whitwell"
 title = "Tom Whitwell"
-pluralizelisttitles = false
-paginate = 5
+enableGitInfo = false
+
+[[menu.main]]
+identifier = "post"
+name = "Posts"
+url = "/"
+weight = 1
+[[menu.main]]
+identifier = "archives"
+name = "Archive"
+url = "/post/"
+weight = 2
+[[menu.main]]
+identifier = "certs"
+name = "Certifications"
+url = "/certs/"
+weight = 3
+
+[taxonomies]
+tags = "tags"
 
 # Theme Parameters
 [params]
-contentTypeName = "blog"
-themeColor = "blue"
-showMenuItems = 2
-showLanguageSelector = false
-fullWidthTheme = false
-centerTheme = false
-
-[languages]
-
-[languages.en]
-languageName = "English"
 title = "Tom Whitwell"
-subtitle = ""
-owner = "Tom Whitwell"
-menuMore = "Show more"
-readMore = "Read more"
-readOtherPosts = "Read other posts"
+keywords = ["whi-tw"]
+numberedSubtitles = false
+toc = false
+emphasisWithDots = true
+since = "2016"
+enableDuckDuckGoSearchBox = false
 
-[languages.en.params.logo]
-logoText = "Tom Whitwell"
-logoHomeLink = "/"
+footnote = """
+Follow me on <a class=link href=https://github.com/whi-tw target=_blank rel=noopener>GitHub</a>,
+<a class=link href=https://www.linkedin.com/in/whi-tw/ target=_blank rel=noopener>LinkedIn</a> or
+<a class=link href=/index.xml>RSS</a>
+"""
 
-[languages.en.menu]
-
-[[languages.en.menu.main]]
-identifier = "certs"
-name = "Certifications"
-url = "/certs"
+[params.commentEngine]
+code = """
+<script
+  src="https://utteranc.es/client.js"
+  repo="whi-tw/whi.tw"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async
+></script>
+"""
+[params.buymeacoffee]
+code = """
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="whi.tw" data-description="Support me on Buy me a coffee!" data-message="" data-color="#FF5F5F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+"""
+[params.sharingbuttons]
+email = true
+linkedin = true
+hackernews = true
+reddit = true
 
 [module]
 [[module.imports]]
-  path = 'github.com/panr/hugo-theme-terminal/v3'
+path = 'github.com/weastur/hugo-texify2'

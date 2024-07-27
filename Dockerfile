@@ -9,7 +9,7 @@ WORKDIR /src/src
 RUN mkdir /build/ \
     && hugo -d /build/ell \
     && cp /build/ell/*.png /build/ \
-    && cp /build/ell/sitemap.xml /build/
+    && cp /build/ell/*.xml /build/
 
 FROM caddy:2.8.4-alpine
 ENV PORT=8080

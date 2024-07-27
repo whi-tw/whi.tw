@@ -1,0 +1,8 @@
+:{$PORT} {
+    redir / /ell/ permanent
+    root * /srv
+    file_server
+    encode gzip
+    log
+
+}

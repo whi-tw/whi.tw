@@ -7,17 +7,17 @@ enableGitInfo = false
 [[menu.main]]
 identifier = "post"
 name = "Posts"
-url = "/ell/"
+url = "/"
 weight = 1
 [[menu.main]]
 identifier = "archives"
 name = "Archive"
-url = "/ell/post/"
+url = "/post/"
 weight = 2
 [[menu.main]]
 identifier = "certs"
 name = "Certifications"
-url = "/ell/certs/"
+url = "/certs/"
 weight = 3
 
 [taxonomies]

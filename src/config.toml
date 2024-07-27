@@ -27,6 +27,7 @@ tags = "tags"
 [params]
 title = "Tom Whitwell"
 keywords = ["whi-tw"]
+description = "Tom Whitwell"
 numberedSubtitles = false
 toc = false
 emphasisWithDots = true
